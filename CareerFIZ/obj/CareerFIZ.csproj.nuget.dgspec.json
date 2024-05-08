@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\JobPortal.Data\\JobPortal.Data.csproj": {}
+    "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ\\CareerFIZ.csproj": {}
   },
   "projects": {
     "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ.Common\\CareerFIZ.Common.csproj": {
@@ -74,14 +74,14 @@
         }
       }
     },
-    "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\JobPortal.Data\\JobPortal.Data.csproj": {
+    "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ\\CareerFIZ.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\JobPortal.Data\\JobPortal.Data.csproj",
-        "projectName": "JobPortal.Data",
-        "projectPath": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\JobPortal.Data\\JobPortal.Data.csproj",
+        "projectUniqueName": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ\\CareerFIZ.csproj",
+        "projectName": "CareerFIZ",
+        "projectPath": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ\\CareerFIZ.csproj",
         "packagesPath": "C:\\Users\\aso\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\JobPortal.Data\\obj\\",
+        "outputPath": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\aso\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -119,37 +119,69 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Authentication.Abstractions": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[6.0.29, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[6.0.29, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[6.0.29, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[6.0.29, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[6.0.29, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[6.0.29, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
               "version": "[6.0.0, )"
+            },
+            "Microsoft.Extensions.Identity.Core": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            },
+            "Microsoft.IdentityModel.JsonWebTokens": {
+              "target": "Package",
+              "version": "[6.35.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.16, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
+              "target": "Package",
+              "version": "[6.0.16, )"
+            },
+            "NuGet.Packaging": {
+              "target": "Package",
+              "version": "[6.9.1, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.35.0, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            },
+            "System.Text.RegularExpressions": {
+              "target": "Package",
+              "version": "[4.3.1, )"
             },
             "X.PagedList.Mvc.Core": {
               "target": "Package",
@@ -168,6 +200,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

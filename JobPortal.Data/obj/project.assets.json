@@ -1125,7 +1125,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "JobPortal.Common/1.0.0": {
+      "CareerFIZ.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
@@ -1133,10 +1133,10 @@
           "Microsoft.Extensions.FileProviders.Physical": "6.0.0"
         },
         "compile": {
-          "bin/placeholder/JobPortal.Common.dll": {}
+          "bin/placeholder/CareerFIZ.Common.dll": {}
         },
         "runtime": {
-          "bin/placeholder/JobPortal.Common.dll": {}
+          "bin/placeholder/CareerFIZ.Common.dll": {}
         }
       }
     }
@@ -2779,15 +2779,15 @@
         "x.pagedlist.mvc.core.nuspec"
       ]
     },
-    "JobPortal.Common/1.0.0": {
+    "CareerFIZ.Common/1.0.0": {
       "type": "project",
-      "path": "../JobPortal.Common/JobPortal.Common.csproj",
-      "msbuildProject": "../JobPortal.Common/JobPortal.Common.csproj"
+      "path": "../CareerFIZ.Common/CareerFIZ.Common.csproj",
+      "msbuildProject": "../CareerFIZ.Common/CareerFIZ.Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "JobPortal.Common >= 1.0.0",
+      "CareerFIZ.Common >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.Abstractions >= 2.2.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.3",
       "Microsoft.EntityFrameworkCore >= 6.0.3",
@@ -2825,8 +2825,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\JobPortal.Common\\JobPortal.Common.csproj": {
-              "projectPath": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\JobPortal.Common\\JobPortal.Common.csproj"
+            "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ.Common\\CareerFIZ.Common.csproj": {
+              "projectPath": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ.Common\\CareerFIZ.Common.csproj"
             }
           }
         }

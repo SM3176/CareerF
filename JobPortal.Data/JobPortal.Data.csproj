@@ -24,7 +24,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JobPortal.Common\JobPortal.Common.csproj" />
+    <ProjectReference Include="..\CareerFIZ.Common\CareerFIZ.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+    <Folder Include="DataContext\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 
 </Project>
