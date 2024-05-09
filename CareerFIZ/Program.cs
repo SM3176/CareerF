@@ -3,14 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using CareerFIZ.Models;
 using CareerFIZ.DataContext;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-var connectionString = builder.Configuration.GetConnectionString("JobPortalContextConnection")
-    ?? throw new InvalidOperationException("Connection string 'JobPortalContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("CareerFIZContextConnection")
+    ?? throw new InvalidOperationException("Connection string 'CareerFIZContextConnection' not found.");
 
 builder.Services.AddDbContext<DataDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -41,7 +43,7 @@ builder.Services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
 //Session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => {
-    options.Cookie.Name = "jobportal";
+    options.Cookie.Name = "CareerFIZ";
     options.IdleTimeout = new TimeSpan(0, 30, 0);
     //options.IdleTimeout = TimeSpan.FromMinutes(30);
 });

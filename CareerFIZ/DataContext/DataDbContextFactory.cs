@@ -18,7 +18,7 @@ namespace CareerFIZ.DataContext
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("JobPortalContextConnection");
+            var connectionString = configuration.GetConnectionString("CareerFIZContextConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
             optionsBuilder.UseSqlServer(connectionString);

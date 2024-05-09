@@ -45,7 +45,7 @@
                 <h1 class="text-white">
                     @if (ViewBag.Time == null && ViewBag.Province == null && ViewBag.Skill == null && ViewBag.Employer == null)
                     {
-                        <text>@ViewBag.jobCount IT Jobs For Developers</text>
+                        <text>Apply for a Job</text>
                     }
                     else
                     {
@@ -58,7 +58,14 @@
                     }
                 </h1>
                 <p class="text-white link-nav"><a href="/">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="/job"> All Jobs</a></p>
-            </div>
+                <div class="row search-page-top d-flex align-items-center justify-content-center">
+                    <div class="banner-content col-lg-12">
+                        <!--Search box-->
+                        <partial name="../Shared/_SearchBoxPartial.cshtml" />
+                        <p style="font-size: 20px" class="text-white"> <span>Search by tags:</span> Developer, Engineer, Technology, Support, Manager, Senior, Junior</p>
+                    </div>
+                </div>
+            </div>            
         </div>
     </div>
 </section>
@@ -80,7 +87,7 @@
                         <div class="single-post d-flex flex-row">
                             <!-- Job skill -->
                             <div class="thumb" style="align-items:center">
-                                <a href="/company/@job.AppUser.Slug"><img href="/job/@job.Slug" style="border-radius:10px" width="200" height="100" src="https://localhost:7211/images/employers/@job.AppUser.UrlAvatar" alt="employer image"></a>
+                                <a href="/company/@job.AppUser.Slug"><img href="/job/@job.Slug" style="border-radius:10px" width="200" height="100" src="/images/employers/@job.AppUser.UrlAvatar" alt="employer image"></a>
                                 <ul class="tags" style="justify-content:center; display: grid; border-radius:10px">
                                     <!-- Province -->
                                     <li style="border-radius:10px">
@@ -177,7 +184,7 @@
             </div>
 
             <!-- Sidebar -->
-            @Html.Partial("../Shared/_SidebarPartial.cshtml")
+            <partial name="../Shared/_SidebarPartial.cshtml" />
 
         </div>
     </div>

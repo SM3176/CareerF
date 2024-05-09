@@ -99,14 +99,7 @@
 
 //--------- Start Banner Area -------------//
 
-.banner-area {
-	background:url(../img/header-bg.jpg) center;
-	background-size:cover;
-	.overlay-bg{
-		@extend .p1-gradient-bg;
-		opacity:.95;
-	}
-}
+
 .banner-content {
 	margin-top:-90px;
 	text-align:center;

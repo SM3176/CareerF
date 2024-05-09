@@ -85,7 +85,7 @@
                                             <td>@Html.DisplayFor(modelBlog => blog.Author)</td>
                                             <td>@Html.DisplayFor(modelBlog => blog.CreateDate)</td>
                                             <td>@Html.DisplayFor(modelBlog => blog.Title)</td>
-                                            <td><img src="https://localhost:7211/images/blogs/@blog.Image" style="width: 200px" /></td>
+                                            <td><img src="/images/blogs/@blog.Image" style="width: 200px" /></td>
                                             <td>
                                                 <a style="color: blue" href="/employer/blog/update/@blog.Id">Update</a> |
                                                 <a style="color: red" href="#" onclick="onDelete(@blog.Id)">Delete</a>

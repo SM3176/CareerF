@@ -66,7 +66,7 @@
                         <div class="single-post d-flex flex-row">
                             <!-- Employer province -->
                             <div class="thumb" style="align-items:center">
-                                <a href="/job?slug=@employer.Slug"><img style="border-radius:10px" width="200" height="100" src="https://localhost:7211/images/employers/@employer.UrlAvatar" alt="employer image"></a>
+                                <a href="/job?slug=@employer.Slug"><img style="border-radius:10px" width="200" height="100" src="/images/employers/@employer.UrlAvatar" alt="employer image"></a>
                                 <ul class="tags" style="justify-content:center; display: grid; border-radius:10px">
                                     <!--Skill-->
                                     <li style="border-radius:10px">
@@ -81,7 +81,7 @@
                                 <div class="title d-flex flex-row justify-content-between">
                                     <div class="titles">
                                         <a href="/company/@employer.Slug"><h4>@employer.FullName</h4></a>
-                                        <p><img width="30" height="20" src="https://localhost:7211/images/countries/@employer.Country.Flag" alt="flag"> @employer.Country.Name</p>
+                                        <p><img width="30" height="20" src="/images/countries/@employer.Country.Flag" alt="flag"> @employer.Country.Name</p>
                                         <strong><a target="_blank" href="https://@employer.WebsiteURL" style="color: black"><span class="lnr lnr-link"></span> @employer.WebsiteURL</a></strong>
                                     </div>
                                 </div>

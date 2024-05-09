@@ -63,7 +63,7 @@ namespace CareerFIZ.Extentions
             });
 
             modelBuilder.Entity<Category>().HasData(
-               new Category() { Id = 1, Name = "Skill", Slug = "skill", Description = "the ability to carry out diverse duties in IT roles" },
+               new Category() { Id = 1, Name = "Skill", Slug = "skill", Description = "the ability to carry out diverse duties in the industry" },
                new Category() { Id = 2, Name = "Title", Slug = "title", Description = "the type of position and level an employee holds" },
                new Category() { Id = 3, Name = "Employer", Slug = "employer", Description = "seek candidates who write code in several coding languages" },
                new Category() { Id = 4, Name = "Province", Slug = "province", Description = "where an Employee reports for work at Company" }

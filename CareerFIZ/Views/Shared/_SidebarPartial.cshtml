@@ -61,7 +61,7 @@
             {
                 <div class="single-rated">
                     <a href="/company/@job.AppUser.Slug">
-                        <img style="width: 300px; height: 150px; margin: 0 auto;" src="https://localhost:7211/images/employers/@job.AppUser.UrlAvatar" alt="employer">
+                        <img style="width: 300px; height: 150px; margin: 0 auto;" src="/images/employers/@job.AppUser.UrlAvatar" alt="employer">
                     </a>
                     <br />
                     <a href="/job/@job.Slug">
@@ -110,7 +110,7 @@
         <div class="blog-list">
             @foreach (var blog in ViewBag.ListBlogs)
             {
-                <div class="single-blog" style="background:#000 url(https://localhost:7211/images/blogs/@blog.Image);">
+                <div class="single-blog" style="background:#000 url(/images/blogs/@blog.Image);">
                     <div class="over"></div>
                     <a href="/blog/@blog.Slug"><h4>@blog.Title</h4></a>
                     <div class="meta justify-content-between d-flex">
