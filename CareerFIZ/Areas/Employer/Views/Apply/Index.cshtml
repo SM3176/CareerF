@@ -217,18 +217,32 @@
                     <br />
                     <ul class="nav nav-tabs" style="justify-content: center">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/employer/apply/@user.Id/3">All applicants</a>
+                            <a class="nav-link @((ViewBag.stat == 3) ? "active" : "")" href="/employer/apply/@user.Id/3">All applicants</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/employer/apply/@user.Id/1">Waiting</a>
+                            <a class="nav-link @((ViewBag.stat == 1) ? "active" : "")" href="/employer/apply/@user.Id/1">Waiting</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/employer/apply/@user.Id/2">Accepted</a>
+                            <a class="nav-link @((ViewBag.stat == 2) ? "active" : "")" href="/employer/apply/@user.Id/2">Accepted</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/employer/apply/@user.Id/0">Denied</a>
+                            <a class="nav-link @((ViewBag.stat == 0) ? "active" : "")" href="/employer/apply/@user.Id/0">Denied</a>
                         </li>
                     </ul>
+
+                    <script>
+                        // Get the current URL and extract the status value from it
+                        var url = window.location.pathname;
+                        var status = parseInt(url.substring(url.lastIndexOf('/') + 1));
+
+                        // Add the 'active' class to the corresponding link
+                        var links = document.getElementsByClassName('nav-link');
+                        for (var i = 0; i < links.length; i++) {
+                            if (status === i) {
+                                links[i].classList.add('active');
+                            }
+                        }
+                    </script>
                     <br />
                     <div class="table-responsive" data-backdrop="static">
                         <table class="table table-bordered">

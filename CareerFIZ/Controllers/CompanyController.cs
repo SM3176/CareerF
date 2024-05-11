@@ -37,10 +37,6 @@ namespace CareerFIZ.Controllers
             //provinces - 4
             ViewBag.ListProvinces = _context.Provinces.Include(p => p.Jobs).Where(p => p.Jobs.Count > 0).Take(4).ToList();
 
-            //random blogs - 5
-            var blogList = _context.Blogs.Include(b => b.AppUser).ToList();
-            ViewBag.ListBlogs = blogList.OrderBy(s => random.Next()).Take(5).ToList();
-
             var employers = _context.AppUsers
                 .Where(e => e.Status == 2)
                 .OrderByDescending(e => e.Popular)
@@ -75,10 +71,6 @@ namespace CareerFIZ.Controllers
 
             //provinces - 4
             ViewBag.ListProvinces = _context.Provinces.Include(p => p.Jobs).Where(p => p.Jobs.Count > 0).Take(4).ToList();
-
-            //random blogs - 5
-            var blogList = _context.Blogs.Include(b => b.AppUser).ToList();
-            ViewBag.ListBlogs = blogList.OrderBy(s => random.Next()).Take(5).ToList();
 
             //job count
             var jobCount = _context.Jobs.Where(j => j.AppUser.Slug == slug).Count();

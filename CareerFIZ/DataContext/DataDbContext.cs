@@ -34,7 +34,6 @@ namespace CareerFIZ.DataContext
             //Configure using Fluent API
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
-            modelBuilder.ApplyConfiguration(new BlogConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new CVConfiguration());
             modelBuilder.ApplyConfiguration(new JobConfiguration());
@@ -42,7 +41,7 @@ namespace CareerFIZ.DataContext
             modelBuilder.ApplyConfiguration(new SkillConfiguration());
             modelBuilder.ApplyConfiguration(new TimeConfiguration());
             modelBuilder.ApplyConfiguration(new TitleConfiguration());
-            modelBuilder.ApplyConfiguration(new CountryConfiguration());
+            modelBuilder.ApplyConfiguration(new CountryConfiguration());            
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -55,7 +54,6 @@ namespace CareerFIZ.DataContext
         }
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
-        public DbSet<Blog> Blogs { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CV> CVs { get; set; }
         public DbSet<Job> Jobs { get; set; }
@@ -64,5 +62,6 @@ namespace CareerFIZ.DataContext
         public DbSet<Time> Times { get; set; }
         public DbSet<Title> Titles { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Payment> Payment { get; set; }
     }
 }

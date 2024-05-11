@@ -34,10 +34,6 @@ namespace CareerFIZ.Controllers
             //provinces - 4
             ViewBag.ListProvinces = _context.Provinces.Include(p => p.Jobs).Where(p => p.Jobs.Count > 0).Take(4).ToList();
 
-            //random blogs - 5
-            var blogList = _context.Blogs.Include(b => b.AppUser).ToList();
-            ViewBag.ListBlogs = blogList.OrderBy(s => random.Next()).Take(5).ToList();
-
             ViewBag.q = q;
             ViewBag.province = await _context.Provinces.FirstOrDefaultAsync(p => p.Id == province);
             ViewBag.skill = await _context.Skills.FirstOrDefaultAsync(s => s.Id == skill);

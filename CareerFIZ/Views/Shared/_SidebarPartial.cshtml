@@ -103,24 +103,7 @@
                 </div>
             }
         </div>
-    </div>
-    <!-- Blogs -->
-    <div class="single-slidebar">
-        <h4 class="text-center">Carrer Advice Blog</h4>
-        <div class="blog-list">
-            @foreach (var blog in ViewBag.ListBlogs)
-            {
-                <div class="single-blog" style="background:#000 url(/images/blogs/@blog.Image);">
-                    <div class="over"></div>
-                    <a href="/blog/@blog.Slug"><h4>@blog.Title</h4></a>
-                    <div class="meta justify-content-between d-flex">
-                        <p>@GetTimeAgo(blog.CreateDate)</p>
-                        <p><span class="lnr lnr-eye"></span> @blog.Popular</p>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
+    </div>   
 </div>
 
 @functions {

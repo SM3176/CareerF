@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Job>
+﻿@model IEnumerable<CareerFIZ.Models.Job>
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 @using X.PagedList.Web.Common;
@@ -20,12 +20,24 @@
                     <p class="card-description">
                         <a class="btn btn-primary" href="/employer/job/@user.Id/create">Add new job</a>
                     </p>
-                    @*<form asp-action="Index" method="get" class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" class="form-control" name="q" style="height: 2.3rem!important;">
+                    <form id="filterForm">
+                        <div class="row justify-content-center form-wrap">
+                            <div class="col-lg-4 form-cols">
+                                <input type="text" class="form-control" id="JobName" placeholder="Enter Job Name" name="q" />
+                            </div>
+                            <div class="col-lg-2 form-cols">
+                                <button type="submit" class="btn btn-info">
+                                    <span class="lnr lnr-magnifier"></span> Filter
+                                </button>                                
+                            </div>
+                            <div class="col-lg-2 form-cols">
+                            <button type="button" class="btn btn-danger" onclick="clearFilter()">
+                                <span class="lnr lnr-cross-circle"></span> Clear Filter
+                            </button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2">Filter</button>
-                    </form>*@
+                    </form>
+                    
                     <form asp-action="DeleteSelected" method="post">
                         <input type="submit" class="btn btn-danger" value="Delete Selected" onclick="return confirm('Confirm deletion of the selected sections?') " />
 
@@ -42,7 +54,9 @@
                                 });
                             </script>
                         }
+                        
 
+                            
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" style="text-align: center">
                                 <thead>
@@ -60,23 +74,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var job in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" name="listDelete" value="@job.Id" />
-                                            </td>
-                                            <td>@Html.DisplayFor(modelJob => job.Name)</td>
-                                            <td>@Html.DisplayFor(modelJob => job.CreateDate)</td>
-                                            <td>@Html.DisplayFor(modelJob => job.Province.Name)</td>
-                                            <td>@Html.DisplayFor(modelJob => job.Time.Name)</td>
-                                            <td>@Html.Raw(string.Join(", ", job.Skills.Select(skill => skill.Name)))</td>
-                                            <td>@Html.DisplayFor(modelJob => job.Title.Name)</td>
-                                            <td>
-                                                <a style="color: blue" href="/employer/job/@job.Id/update">Update</a> |
-                                                <a style="color: red" href="#" onclick="onDelete(@job.Id)">Delete</a>
-                                            </td>
-                                        </tr>
+                                    @{
+                                        if(Model != null){
+                                            foreach (var job in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" name="listDelete" value="@job.Id" />
+                                                    </td>
+                                                    <td>@Html.DisplayFor(modelJob => job.Name)</td>
+                                                    <td>@Html.DisplayFor(modelJob => job.CreateDate)</td>
+                                                    <td>@Html.DisplayFor(modelJob => job.Province.Name)</td>
+                                                    <td>@Html.DisplayFor(modelJob => job.Time.Name)</td>
+                                                    <td>@Html.Raw(string.Join(", ", job.Skills.Select(skill => skill.Name)))</td>
+                                                    <td>@Html.DisplayFor(modelJob => job.Title.Name)</td>
+                                                    <td>
+                                                        <a style="color: blue" href="/employer/job/@job.Id/update">Update</a> |
+                                                        <a style="color: red" href="#" onclick="onDelete(@job.Id)">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                            <td>hello</td>
+                                            </tr>
+                                        }
                                     }
                                 </tbody>
                             </table>
@@ -164,5 +188,36 @@
                 )
             }
         })
+    }
+    document.getElementById("filterForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // prevent form submission
+        applyFilter();
+    });
+
+    function applyFilter() {
+        var jobName = document.getElementById("JobName").value.trim().toLowerCase();
+        var rows = document.getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var jobNameCell = rows[i].getElementsByTagName("td")[1]; // assuming JobName is the second column
+            if (jobNameCell) {
+                var jobNameText = jobNameCell.textContent || jobNameCell.innerText;
+                var row = rows[i];
+                if (jobName === "" || jobNameText.toLowerCase().includes(jobName)) {
+                    row.style.display = ""; // show matching rows
+                } else {
+                    row.style.display = "none"; // hide non-matching rows
+                }
+            }
+        }
+    }
+
+    function clearFilter() {
+        document.getElementById("JobName").value = ""; // clear the input field
+
+        var rows = document.getElementsByTagName("tr");
+        for (var i = 0; i < rows.length; i++) {
+            rows[i].style.display = ""; // show all rows
+        }
     }
 </script>

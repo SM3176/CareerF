@@ -148,59 +148,7 @@
             </div>
         </div>
         <!--/ Jobs Statistics-->
-        <!-- Blog Statistics -->
-        <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
-            <div class="card h-100">
-                <div class="card-header d-flex align-items-center justify-content-between pb-0">
-                    <div class="card-title mb-0">
-                        <h5 class="m-0 me-2">Blog Statistics</h5>
-                        <small class="text-muted">@ViewBag.blogCount Total Blogs</small>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex flex-column align-items-center gap-1">
-                            <h2 class="mb-2">@ViewBag.blogCount</h2>
-                            <span>Total Blogs</span>
-                        </div>
-                        <img src="~/images/default/blog-icon.png"
-                             height="120"
-                             style="margin-bottom: 10px"
-                             alt="EMPLOYER IMAGE"
-                             data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                             data-app-light-img="illustrations/man-with-laptop-light.png" />
-                    </div>
-                    <ul class="p-0 m-0">
-                        <!-- Loop -->
-                        @if (ViewBag.blogList != null && ViewBag.blogList.Count > 0)
-                        {
-                            @foreach (var blog in ViewBag.blogList)
-                            {
-                                <li class="d-flex mb-4 pb-1">
-                                    <div class="avatar flex-shrink-0 me-3">
-                                        <img src="~/assets/admin/assets/img/icons/unicons/cc-primary.png" alt="Job" class="rounded" />
-                                    </div>
-                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                        <div class="me-2">
-                                            <small class="text-muted d-block mb-1">@blog.Author</small>
-                                            <h6 class="mb-0">@blog.Title</h6>
-                                        </div>
-                                        <div class="user-progress d-flex align-items-center gap-1">
-                                            <small class="fw-semibold">Posted: @blog.CreateDate.ToString("dd/MM/yyyy")</small>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-                        }
-                        else
-                        {
-                            <li>No blogs available</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--/ Blog Statistics -->
+  
         <!-- CV Statistics -->
         <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
             <div class="card h-100">

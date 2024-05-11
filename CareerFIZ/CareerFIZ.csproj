@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Content Remove="Views\Company\Index.cshtml" />
-    <Content Remove="Views\Blog\Index.cshtml" />
     <Content Remove="Views\Job\Index.cshtml" />
   </ItemGroup>
 
@@ -28,7 +27,6 @@
     <None Include="Areas\Employer\Views\Apply\Index.cshtml" />
     <None Include="Views\Apply\Apply.cshtml" />
     <None Include="Views\Company\Index.cshtml" />
-    <None Include="Views\Blog\Index.cshtml" />
     <None Include="Views\Job\Index.cshtml" />
     <None Include="Views\Shared\Components\Category\Default.cshtml" />
     <None Include="Views\Shared\Components\Time\Default.cshtml" />
@@ -360,24 +358,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\blogs\" />
     <Folder Include="wwwroot\images\cvs\" />
     <Folder Include="wwwroot\images\skills\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Areas\Employer\Views\Blog\Create.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\Employer\Views\Blog\Index.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\Employer\Views\Blog\Update.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 
 </Project>
