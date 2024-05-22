@@ -5,10 +5,10 @@ using CareerFIZ.Models;
 using CareerFIZ.DataContext;
 using CareerFIZ.ViewModel;
 
-namespace CareerFIZ.Areas.Employer.Controllers
+namespace CareerFIZ.Areas.HRStaff.Controllers
 {
-    [Area("Employer")]
-    [Route("employer/apply")]
+    [Area("HRStaff")]
+    [Route("hrstaff/apply")]
     public class ApplyController : Controller
     {
         private readonly DataDbContext _context;

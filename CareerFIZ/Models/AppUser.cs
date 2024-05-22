@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
@@ -50,5 +51,7 @@ namespace CareerFIZ.Models
         [Display(Name = "Content")]
         public string? Content { get; set; }
         public int Popular { get; set; }
+        [DefaultValue(0)]
+        public int VipLv { get; set; }
     }
 }

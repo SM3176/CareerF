@@ -26,24 +26,24 @@ namespace CareerFIZ.Controllers
             ViewBag.FilterProvinces = _context.Provinces.OrderBy(p => p.Id).ToList();
             ViewBag.FilterSkills = _context.Skills.OrderBy(s => s.Name).ToList();
 
-            //random employers - 4
-            var employerList = _context.Users.Where(e => e.Status == 2).Include(e => e.Province).Include(e => e.Jobs).ToList();
-            ViewBag.RandomEmployers = employerList.OrderBy(e => Guid.NewGuid()).Where(e => e.Jobs.Count > 0).Take(4).ToList();
+            //sponsor employers - 4
+            var employerList = _context.Users.Where(e => e.Status == 2).Where(s => s.VipLv>1).Include(e => e.Province).Include(e => e.Jobs).ToList();
+            ViewBag.SponsorEmployers = employerList.OrderBy(e => Guid.NewGuid()).Where(e => e.Jobs.Count > 0).Take(4).ToList();
 
             //random skills - 6
             var skillList = _context.Skills.ToList();
             ViewBag.RandomSkills = skillList.OrderBy(s => random.Next()).Take(6).ToList();
 
-            //random jobs - 6
-            var jobList = _context.Jobs
+            //sponsor jobs - 6
+            var jobList = _context.Jobs.Where(j=>j.isSponser == true)
                 .Include(j => j.Province)
                 .Include(j => j.AppUser)
                 .Include(j => j.Title)
                 .Include(j => j.Time)
                 .Include(j => j.Skills)
                 .ToList();
-            var randomJobs = jobList.OrderBy(j => random.Next()).Take(6).ToList();
-            ViewBag.RandomJobs = randomJobs;
+            var SponsorJob = jobList.OrderByDescending(j => j.CreateDate).Take(6).ToList();
+            ViewBag.SponsorJobs = SponsorJob;
 
             return View(jobs);
         }

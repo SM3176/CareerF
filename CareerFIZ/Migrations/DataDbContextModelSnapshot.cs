@@ -57,7 +57,7 @@ namespace JobPortal.Data.Migrations
                         new
                         {
                             Id = new Guid("9f685d0f-bd6f-44dd-ab60-c606952eb2a8"),
-                            ConcurrencyStamp = "58c0b45d-8a39-4ec0-bd70-15d101f8bfbc",
+                            ConcurrencyStamp = "f365fdb1-1e95-4e59-bbbd-0f4633a23ce6",
                             Description = "Administrator role",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -65,7 +65,7 @@ namespace JobPortal.Data.Migrations
                         new
                         {
                             Id = new Guid("4e233be7-c199-4567-9c07-9271a9de4c64"),
-                            ConcurrencyStamp = "a8766a5b-69ba-43aa-bafd-bf6b849d913f",
+                            ConcurrencyStamp = "0dd2983e-710b-42c0-9903-eb99e0c6108c",
                             Description = "Employer role",
                             Name = "Employer",
                             NormalizedName = "EMPLOYER"
@@ -73,7 +73,7 @@ namespace JobPortal.Data.Migrations
                         new
                         {
                             Id = new Guid("376c1d1e-0b04-47da-9657-a2a87faf0a59"),
-                            ConcurrencyStamp = "e4151974-d25e-4722-b0ca-96cdafbcdb53",
+                            ConcurrencyStamp = "0264f295-80ce-44cf-a890-60b6c33cfaf1",
                             Description = "User role",
                             Name = "User",
                             NormalizedName = "USER"
@@ -194,6 +194,9 @@ namespace JobPortal.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("VipLv")
+                        .HasColumnType("int");
+
                     b.Property<string>("WebsiteURL")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -224,8 +227,8 @@ namespace JobPortal.Data.Migrations
                         {
                             Id = new Guid("769f41bd-ccd4-45ba-abbd-550ccd0b62e3"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7d93635e-f542-4913-bd69-64f7720f62f6",
-                            CreateDate = new DateTime(2024, 5, 11, 17, 28, 39, 411, DateTimeKind.Local).AddTicks(287),
+                            ConcurrencyStamp = "827021fe-685a-43d4-9b64-4be784ebbc42",
+                            CreateDate = new DateTime(2024, 5, 22, 10, 56, 17, 419, DateTimeKind.Local).AddTicks(4752),
                             Disable = false,
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -233,7 +236,7 @@ namespace JobPortal.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIeCStR+p8nHDIxyMbIiZMf2KqwqIHQxQYqzMv01EOVhhvtnXQFdP5TyAJRNuRnFhw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN/zs1h2QzhcoIt5VXY0aFaILq4IZwQM/9rNVqXJfpfirG2ERVcgR+jCA87ks8PSlQ==",
                             PhoneNumberConfirmed = false,
                             Popular = 0,
                             SecurityStamp = "",
@@ -241,7 +244,8 @@ namespace JobPortal.Data.Migrations
                             Status = -1,
                             TwoFactorEnabled = false,
                             UrlAvatar = "default_admin.png",
-                            UserName = "admin@gmail.com"
+                            UserName = "admin@gmail.com",
+                            VipLv = 0
                         });
                 });
 
@@ -589,6 +593,9 @@ namespace JobPortal.Data.Migrations
                     b.Property<int>("TitleId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isSponser")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
@@ -604,6 +611,36 @@ namespace JobPortal.Data.Migrations
                     b.ToTable("Jobs", (string)null);
                 });
 
+            modelBuilder.Entity("CareerFIZ.Models.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ActionTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("IPAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Log");
+                });
+
             modelBuilder.Entity("CareerFIZ.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -613,12 +650,14 @@ namespace JobPortal.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("PaymentDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -1046,6 +1085,17 @@ namespace JobPortal.Data.Migrations
                     b.Navigation("Time");
 
                     b.Navigation("Title");
+                });
+
+            modelBuilder.Entity("CareerFIZ.Models.Log", b =>
+                {
+                    b.HasOne("CareerFIZ.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("CareerFIZ.Models.Payment", b =>

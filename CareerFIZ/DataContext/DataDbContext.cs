@@ -63,5 +63,6 @@ namespace CareerFIZ.DataContext
         public DbSet<Title> Titles { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Payment> Payment { get; set; }
+        public DbSet<Log> Log { get; set; }
     }
 }

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using CareerFIZ.DataContext;
 
-namespace CareerFIZ.Areas.Employer.Controllers
+namespace CareerFIZ.Areas.HRStaff.Controllers
 {
-    [Area("Employer")]
-    [Route("employer")]
-    [Authorize(Roles = "Employer")]
+    [Area("HRStaff")]
+    [Route("hrstaff")]
+    [Authorize(Roles = "HRStaff")]
     public class HomeController : Controller
     {
         private readonly DataDbContext _context;

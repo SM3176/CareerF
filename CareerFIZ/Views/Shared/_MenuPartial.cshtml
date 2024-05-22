@@ -9,6 +9,7 @@
     var isInRoleUser = User.IsInRole("User");
     var isInRoleEmployer = User.IsInRole("Employer");
     var isInRoleAdmin = User.IsInRole("Admin");
+    var isInRoleHRStaff = User.IsInRole("HRStaff");
 }
 
 <li class="menu-active"><a href="/">Home</a></li>
@@ -62,6 +63,15 @@
         </li>
         <li>
             <a href="/admin" class="ticker-btn">Admin Site</a>
+        </li>
+    }
+    else if (isInRoleHRStaff)
+    {
+        <li>
+            <a href="#" class="ticker-btn">Hi, @(account.FullName ?? account.UserName)</a>
+        </li>
+        <li>
+            <a href="/hrstaff" class="ticker-btn">Staff Site</a>
         </li>
     }
     else

@@ -94,7 +94,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label asp-for="Location" class="control-label"></label><span class="text-danger">*</span>
-                                            <input asp-for="Location" class="form-control" />
+                                            <select id="locationDropdown" asp-for="Location" class="form-control"><option value="">Select Location</option></select>
                                             <span asp-validation-for="Location" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
@@ -102,14 +102,14 @@
                                             <input asp-for="WebsiteURL" class="form-control" />
                                             <span asp-validation-for="WebsiteURL" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        @* <div class="form-group">
                                             <label asp-for="ProvinceId" class="control-label"></label><span class="text-danger">*</span>
                                             <select asp-for="ProvinceId" class="form-control" asp-items="ViewBag.ProvinceId"></select>
                                         </div>
                                         <div class="form-group">
                                             <label asp-for="CountryId" class="control-label"></label><span class="text-danger">*</span>
                                             <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId"></select>
-                                        </div>
+                                        </div> *@
                                         <div class="form-group text-center" style="margin-bottom: 15px">
                                             <input style="background-color:forestgreen" type="button" onclick="onRegister()" value="Register" class="btn btn-primary" />
                                         </div>
@@ -151,7 +151,31 @@
             theme: 'snow'
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Load countries and cities into the dropdown
+            $.ajax({
+                url: "https://countriesnow.space/api/v0.1/countries",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var locationDropdown = $("#locationDropdown");
+                    locationDropdown.empty().append($("<option>").text("Select Location").val(""));
 
+                    $.each(data.data, function (country, cities) {
+                        $.each(cities, function (index, city) {
+                            var optionText = country + ', ' + city;
+                            locationDropdown.append($("<option>").text(optionText));
+                        });
+                    });
+                },
+                error: function () {
+                    console.log("Failed to load countries and cities.");
+                }
+            });
+        });
+    </script>
     <script>
         function onRegister() {
             if ($('#imgInp').get(0).files.length === 0) {

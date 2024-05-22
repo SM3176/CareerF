@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using CareerFIZ.ViewModel;
 using CareerFIZ.Models;
 
-namespace CareerFIZ.Areas.Employer.Controllers
+namespace CareerFIZ.Areas.HRStaff.Controllers
 {
-    [Area("Employer")]
-    [Route("employer/auth")]
-    [Route("employer")]
+    [Area("HRStaff")]
+    [Route("hrstaff/auth")]
+    [Route("hrstaff")]
     public class AccountController : Controller
     {
         private readonly SignInManager<AppUser> signInManager;
@@ -52,10 +52,10 @@ namespace CareerFIZ.Areas.Employer.Controllers
 
                     //get role by user
                     var roles = await userManager.GetRolesAsync(user);
-                    if (!roles.Contains("Employer"))
+                    if (!roles.Contains("HRStaff"))
                     {
                         await signInManager.SignOutAsync();
-                        ModelState.AddModelError(string.Empty, "This page is only for employer accounts.");
+                        ModelState.AddModelError(string.Empty, "This page is only for HRStaff accounts.");
                     }                   
                     else if (!string.IsNullOrEmpty(returnUrl))
                     {

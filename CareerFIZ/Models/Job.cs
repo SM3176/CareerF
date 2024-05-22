@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using CareerFIZ.Common;
 
 namespace CareerFIZ.Models
@@ -41,7 +42,8 @@ namespace CareerFIZ.Models
         [Display(Name = "Max salary")]
         [Range(1, int.MaxValue, ErrorMessage = "Please enter valid salary.")]
         //[SalaryRange("MinSalary")] //Salary Range Validation Attribute
-        public int? MaxSalary { get; set; }
+        public int? MaxSalary { get; set; }        
+        public bool isSponser {  get; set; }
         public AppUser? AppUser { get; set; }
         [Display(Name = "Employer")]
         public Guid AppUserId { get; set; }
