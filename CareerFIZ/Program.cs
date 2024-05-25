@@ -4,8 +4,7 @@ using Microsoft.Extensions.Options;
 using CareerFIZ.Models;
 using CareerFIZ.DataContext;
 using System.Text.Encodings.Web;
-using CareerFIZ.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,11 +28,21 @@ builder.Services.AddTransient<DataDbContext>();
 
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
+<<<<<<< HEAD
     options.Password.RequiredLength = 8;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
     options.SignIn.RequireConfirmedAccount = true;
+    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+=======
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.SignIn.RequireConfirmedAccount = false;
+>>>>>>> parent of 56d1541 (more updates)
 })
                 .AddEntityFrameworkStores<DataDbContext>()
                 .AddDefaultTokenProviders();
@@ -56,10 +65,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     //options.LoginPath = "/Account/Login";
     //options.LoginPath = "/login";
 });
-
-builder.Services.AddTransient<IEmailSender, EmailSender>();
-builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
-
 
 builder.Services.AddSession();
 
@@ -94,8 +99,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
       name: "areas",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );    
+    );
 });
-
 
 app.Run();

@@ -1,23 +1,29 @@
+<<<<<<< HEAD
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+=======
 ﻿using System.ComponentModel.DataAnnotations;
 using CareerFIZ.Common;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+>>>>>>> parent of 56d1541 (more updates)
 
 namespace CareerFIZ.Models
 {
-    public class Payment
+    public partial class Payment
     {
+<<<<<<< HEAD
+        public int Id { get; set; }
+        public decimal Amount { get; set; }
+=======
         public int Id {  get; set; }
 
-        [Precision(18, 2)]
         public decimal Amount { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+>>>>>>> parent of 56d1541 (more updates)
         public DateTime PaymentDate { get; set; }
-
         public Guid AppUserId { get; set; }
 
-        public virtual AppUser AppUsers { get; set; }
+        public virtual AppUser AppUser { get; set; } = null!;
     }
 }

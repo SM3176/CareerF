@@ -39,38 +39,23 @@
                     </form>
                     
                     <form asp-action="DeleteSelected" method="post">
-                        <input type="submit" id="deleteButton" class="btn btn-danger" value="Delete Selected" onclick="return confirm('Confirm deletion of the selected sections?') " />
+                        <input type="submit" class="btn btn-danger" value="Delete Selected" onclick="return confirm('Confirm deletion of the selected sections?') " />
 
                         @section Scripts {
                             <script>
                                 $(function () {
                                     $('#checkall').change(function () {
-                                        if ($(this).prop("checked")) {
-                                            $("tr:visible input[name=listDelete]").prop("checked", true);
+                                        if ($(this).prop("checked") == true) {
+                                            $("input[name=listDelete]").prop("checked", true);
                                         } else {
-                                            $("tr:visible input[name=listDelete]").prop("checked", false);
+                                            $("input[name=listDelete]").prop("checked", false);
                                         }
-                                        toggleDeleteButton();
                                     });
-
-                                    // Function to toggle the deleteButton
-                                    $("input[name=listDelete]").change(function () {
-                                        toggleDeleteButton();
-                                    });
-
-                                    function toggleDeleteButton() {
-                                        if ($("input[name=listDelete]:checked").length > 0) {
-                                            $('#deleteButton').prop('disabled', false);
-                                        } else {
-                                            $('#deleteButton').prop('disabled', true);
-                                        }
-                                    }
-
-                                    // Trigger the initial state of deleteButton
-                                    toggleDeleteButton();
                                 });
                             </script>
-                        }                                               
+                        }
+                        
+
                             
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" style="text-align: center">

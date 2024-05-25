@@ -123,10 +123,6 @@
               "target": "Package",
               "version": "[6.0.29, )"
             },
-            "Microsoft.AspNetCore.Identity.UI": {
-              "target": "Package",
-              "version": "[6.0.29, )"
-            },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[6.0.29, )"
@@ -174,10 +170,6 @@
             "NuGet.Packaging": {
               "target": "Package",
               "version": "[6.9.1, )"
-            },
-            "SendGrid": {
-              "target": "Package",
-              "version": "[9.29.3, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",

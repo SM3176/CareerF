@@ -14,6 +14,7 @@ namespace CareerFIZ.Configurations
             builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Popular).HasDefaultValue(0);
             builder.Property(x => x.Slug).IsRequired();
+            builder.Property(x=>x.isSponser).HasDefaultValue(false);
         }
     }
 }

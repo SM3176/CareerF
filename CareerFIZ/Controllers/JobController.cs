@@ -25,8 +25,8 @@ namespace CareerFIZ.Controllers
             int pageSize = 5; //number of jobs per page
             var random = new Random();
 
-            //random jobs - 6
-            var jobList = _context.Jobs.Include(j => j.Province).ToList();
+            //sponsored jobs - 6
+            var jobList = _context.Jobs.Where(i=>i.isSponser).Include(j => j.Province).ToList();
             ViewBag.ListJobs = jobList.OrderBy(j => random.Next()).Take(6).ToList();
 
             //random skills - 7
@@ -96,58 +96,6 @@ namespace CareerFIZ.Controllers
             return View(jobs.ToPagedList(page ?? 1, pageSize));
         }
 
-		/*[HttpGet("jobs/detail/{slug}")]
-		public Job GetJobDetailsBySlug(string slug)
-        {
-            var random = new Random();
-
-            //random jobs - 6
-            var jobList = _context.Jobs
-                .Include(j => j.Province)
-                .Include(j => j.AppUser)
-                .Include(j => j.Time)
-                .Include(j => j.Title)
-                .ToList();
-            ViewBag.ListJobs = jobList.OrderBy(j => random.Next()).Take(6).ToList();
-
-            //random skills - 7
-            var skillList = _context.Skills.Include(s => s.Jobs).ToList();
-            ViewBag.ListSkills = skillList.OrderBy(s => random.Next()).Where(s => s.Jobs.Count > 0).Take(7).ToList();
-
-            //provinces - 4
-            ViewBag.ListProvinces = _context.Provinces.Include(p => p.Jobs).Where(p => p.Jobs.Count > 0).Take(4).ToList();
-
-            var job = _context.Jobs
-                .Where(j => j.Slug == slug)
-                .Include(j => j.AppUser)
-                .Include(j => j.Time)
-                .Include(j => j.Title)
-                .Include(j => j.Skills)
-                .FirstOrDefault();
-            job.Popular++;
-             _context.SaveChangesAsync();
-            if (_userManager.UserValidators !=null) {
-                //check existing CV
-                var user = _userManager.GetUserId(User);
-                var userId = user != null ? Guid.Parse(user.ToString()) : Guid.Empty;
-                if (userId != null)
-                {
-                    Task<bool> hasSubmittedCV = HasSubmittedCV(userId, slug);
-                    ViewBag.HasSubmittedCV = hasSubmittedCV;
-                }
-                else
-                {
-                    bool hasSubmittedCV = false;
-                    ViewBag.HasSubmittedCV = hasSubmittedCV;
-                }
-
-                
-            }
-            
-
-            return job;
-        }*/
-
         [Route("{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {
@@ -193,17 +141,5 @@ namespace CareerFIZ.Controllers
             return await _context.CVs.AnyAsync(cv => cv.Job.Slug == jobSlug && cv.AppUserId == userId);
         }
 
-
-        /*[HttpGet("jobs/details/{slug}")]
-		public ActionResult JobDetails(string slug)
-        {
-            // Retrieve the job details using the slug parameter
-            var job = GetJobDetailsBySlug(slug);
-
-            // Return the partial view containing the job details
-            return PartialView("_JobDetailsPartial", job);
-        }*/
-
     }
-    
 }

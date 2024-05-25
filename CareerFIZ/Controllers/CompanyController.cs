@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using CareerFIZ.DataContext;
-
+using System.Linq;
 namespace CareerFIZ.Controllers
 {
     [Route("company")]
@@ -21,8 +21,8 @@ namespace CareerFIZ.Controllers
             int pageSize = 7; //number of employers per page
             var random = new Random();
 
-            //random jobs - 6
-            var jobList = _context.Jobs
+            //sponsored jobs - 6
+            var jobList = _context.Jobs.Where(i=>i.isSponser)
                 .Include(j => j.Province)
                 .Include(j => j.Time)
                 .Include(j => j.Title)

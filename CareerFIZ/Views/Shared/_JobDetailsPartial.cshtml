@@ -1,12 +1,4 @@
 ﻿@model Job
-@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Http
-@inject SignInManager<AppUser> signInManager
-@inject UserManager<AppUser> userManager
-
-@{
-	var user = await userManager.GetUserAsync(User);
-}
 
 <div class="job-details">
     <h2>@Model.Name</h2>
@@ -18,11 +10,11 @@
 				<div class="col-lg-8 post-list">
 					<div class="single-post d-flex flex-row">
 						<div class="thumb" style="align-items:center">
-							<a href="/job?slug=@Model.AppUser.Slug"><img style="border-radius:10px" width="200" height="100" src="/images/employers/@Model.AppUser.UrlAvatar" alt="EMPLOYER IMAGE"></a>
+							
 							<ul class="tags" style="justify-content:center; display: grid; border-radius:10px">
 								<!-- Province -->
 								<li style="border-radius:10px">
-									<strong><a href="/job?slug=@Model.Province.Slug" style="color: black"><span class="lnr lnr-map-marker"></span> @Model.Province.Name</a></strong>
+									<span class="lnr lnr-map-marker"></span> @Model.Province.Name
 								</li>
 							</ul>
 							<hr />
@@ -37,13 +29,6 @@
 							</ul>
 						</div>
 						<div class="details" style="margin-left:20px; width:600px;">
-							<div class="title d-flex flex-row justify-content-between">
-								<div class="titles">
-									<a href="/job/@Model.Slug"><h4>@Model.Name</h4></a>
-									<h5 style="color: gray; margin-bottom: 5px;"><span class="lnr lnr-hourglass"></span> @GetTimeAgo(Model.CreateDate)</h5>
-									<h5 style="margin-top: 10px; margin-bottom: 10px"><strong>From: <a href="/company/@Model.AppUser.Slug">@Model.AppUser.FullName</a></strong></h5>
-								</div>
-							</div>
 							<hr>
 							<p>@Html.Raw(Model.Introduce)</p>
 							<hr />
@@ -70,66 +55,4 @@
 							</li>
 						</ul>
 					</div>
-					<!--Apply-->
-					@if (signInManager.IsSignedIn(User))
-					{
-						if (!User.IsInRole("User"))
-						{
-							<a class="text-uppercase loadmore-btn mx-auto d-block" type="button" href="#" onclick="accessDenied()">apply now</a>
-						}
-						else if (ViewBag.HasSubmittedCV)
-						{
-							<a class="text-uppercase loadmore-btn mx-auto d-block" type="button" href="#" onclick="waiting()">apply now</a>
-						}
-						else
-						{
-							<a class="text-uppercase loadmore-btn mx-auto d-block" href="/apply/@Model.Slug/@user.Id">apply now</a>
-						}
-					}
-					else
-					{
-						<a target="_blank" class="text-uppercase loadmore-btn mx-auto d-block" href="/login">login to apply now</a>
-					}
-				</div>
 </div>
-
-			<script>
-				function accessDenied() {
-					Swal.fire({
-						title: 'Sorry !',
-						text: 'Apply job only for user account.',
-						icon: 'warning',
-						confirmButtonText: 'OK'
-					});
-				}
-
-				function waiting() {
-					Swal.fire({
-						title: 'You already submitted your CV !',
-						text: 'Please wait for the results from the employer.',
-						icon: 'info',
-						confirmButtonText: 'OK'
-					});
-				}
-			</script>
-
-			@functions {
-				public string GetTimeAgo(DateTime? createDate)
-				{
-					DateTime actualCreateDate = createDate.Value;
-					TimeSpan timeAgo = DateTime.Now - actualCreateDate;
-
-					if (timeAgo.TotalMinutes < 60)
-					{
-						return $"Posted {Math.Max(1, (int)timeAgo.TotalMinutes)} minute{(timeAgo.TotalMinutes >= 2 ? "s" : "")} ago";
-					}
-					else if (timeAgo.TotalHours < 24)
-					{
-						return $"Posted {Math.Max(1, (int)timeAgo.TotalHours)} hour{(timeAgo.TotalHours >= 2 ? "s" : "")} ago";
-					}
-					else
-					{
-						return $"Posted {Math.Max(1, (int)timeAgo.TotalDays)} day{(timeAgo.TotalDays >= 2 ? "s" : "")} ago";
-					}
-				}
-			}

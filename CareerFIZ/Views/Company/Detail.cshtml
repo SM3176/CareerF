@@ -45,49 +45,50 @@
                         }
                     </ul>
                     <ul class="tags">
-                        @if(Model.WebsiteURL !=null){<li><a target="_blank" href="https://@Model.WebsiteURL/">@Model.WebsiteURL</a></li> <h2> - Established: @Model.CreateDate - </h2>}
-                        @if(Model.Country.Name != null){<h4>@Model.Country.Name</h4>}
+                        <li><a target="_blank" href="https://@Model.WebsiteURL/">@Model.WebsiteURL</a></li> - Established: @Model.CreateDate -
+                        <img width="30" height="20" src="/images/countries/@Model.Country.Flag" alt="flag"> @Model.Country.Name
                     </ul>
                     <div class="content-wrap">
                         <h6>Company overview:</h6>
                         <blockquote class="generic-blockquote">
-                        @if(Model.Description !=null){    <p>@Html.Raw(Model.Description)</p>}
-                        @if(Model.Content !=null){    <p>@Html.Raw(Model.Content)</p>}
+                            <p>@Html.Raw(Model.Description)</p>
+                            <p>@Html.Raw(Model.Content)</p>
                         </blockquote>
 
-                        @if (Model.Location != null)
-                        {
-                            <h6>Location:</h6>
-                        <p>@Html.Raw(Model.Location)</p>}
+                        <h6>Location:</h6>
+                        <p>@Html.Raw(Model.Location)</p>
 
-                        @if (Model.CompanySize != null)
-                        {
-                            <h6>Company size:</h6>
-                        <p>@Html.Raw(Model.CompanySize)</p>}
+                        <h6>Company size:</h6>
+                        <p>@Html.Raw(Model.CompanySize)</p>
 
-                        @if (Model.WorkingDays != null)
-                        {
-                            <h6>Working days:</h6>
-                        <p>@Html.Raw(Model.WorkingDays)</p>}
+                        <h6>Working days:</h6>
+                        <p>@Html.Raw(Model.WorkingDays)</p>
 
-                        @if (Model.Province.Name != null)
-                        {
-                            <h6>Province:</h6>
-                        <p>@Html.Raw(Model.Province.Name)</p>}
+                        <h6>Province:</h6>
+                        <p>@Html.Raw(Model.Province.Name)</p>
 
-                        @if (Model.Contact != null)
-                        {
-                            <h6>Contact:</h6>
-                        <p>@Html.Raw(Model.Contact)</p>}
+                        <h6>Contact:</h6>
+                        <p>@Html.Raw(Model.Contact)</p>
                         
                     </div>
                     <hr />
                     <div class="bottom-meta">
                         <div class="user-details row align-items-center">
                             <div class="comment-wrap col-lg-6 col-sm-6">
-   
+                                @*<ul>
+                                    <li><a href="#"><span class="lnr lnr-heart"></span>	4 likes</a></li>
+                                    <li><a href="#"><span class="lnr lnr-bubble"></span> 06 Comments</a></li>
+                                </ul>*@
                             </div>
-                            
+                            <div class="social-wrap col-lg-6">
+                                <ul>
+                                    <li><a href="https://facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="https://dribbble.com/"><i class="fa fa-dribbble"></i></a></li>
+                                    <li><a href="https://behance.net/"><i class="fa fa-behance"></i></a></li>
+                                </ul>
+
+                            </div>
                         </div>
                     </div>
 

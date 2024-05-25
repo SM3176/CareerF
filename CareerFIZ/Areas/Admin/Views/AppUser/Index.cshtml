@@ -11,56 +11,6 @@
                 <div class="card-body">
                     <h4 class="card-title" style="text-align:center">List Account With Role</h4>
                     <br />
-                    <form id="filterForm">
-                        <div class="row justify-content-center form-wrap">
-                            <div class="col-lg-4 form-cols">
-                                <input type="text" class="form-control" id="UsrEmail" placeholder="Enter User Email" name="q" />
-                            </div>
-                            <div class="col-lg-2 form-cols">
-                                <button type="submit" class="btn btn-info">
-                                    <span class="lnr lnr-magnifier"></span> Filter
-                                </button>
-                            </div>
-                            <div class="col-lg-2 form-cols">
-                                <button type="button" class="btn btn-danger" onclick="clearFilter()">
-                                    <span class="lnr lnr-cross-circle"></span> Clear Filter
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    <script>
-                        document.getElementById("filterForm").addEventListener("submit", function (event) {
-                            event.preventDefault(); // prevent form submission
-                            applyFilter();
-                        });
-
-                        function applyFilter() {
-                            var UsrEmail = document.getElementById("UsrEmail").value.trim().toLowerCase();
-                            var rows = document.getElementsByTagName("tr");
-
-                            for (var i = 1; i < rows.length; i++) { // Start from index 1 to skip the table header row
-                                var UsrEmailCell = rows[i].getElementsByTagName("td")[0]; // Assuming UsrEmail is the first column
-                                if (UsrEmailCell) {
-                                    var UsrEmailText = UsrEmailCell.textContent || UsrEmailCell.innerText;
-                                    var row = rows[i];
-                                    if (UsrEmail === "" || UsrEmailText.toLowerCase().includes(UsrEmail)) {
-                                        row.style.display = ""; // Show matching rows
-                                    } else {
-                                        row.style.display = "none"; // Hide non-matching rows
-                                    }
-                                }
-                            }
-                        }
-
-                        function clearFilter() {
-                            document.getElementById("UsrEmail").value = ""; // Clear the input field
-
-                            var rows = document.getElementsByTagName("tr");
-                            for (var i = 1; i < rows.length; i++) { // Start from index 1 to skip the table header row
-                                rows[i].style.display = ""; // Show all rows
-                            }
-                        }
-                    </script>
                     <div class="table-responsive">
                         <table class="table table-bordered" style="text-align: center">
                             <thead>

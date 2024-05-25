@@ -9,11 +9,11 @@ using CareerFIZ.Common;
 using CareerFIZ.DataContext;
 using CareerFIZ.ViewModel;
 
-namespace CareerFIZ.Areas.HRStaff.Controllers
+namespace CareerFIZ.Areas.Employer.Controllers
 {
-    [Area("HRStaff")]
-    [Route("hrstaff/job")]
-    [Authorize(Roles = "HRStaff")]
+    [Area("Employer")]
+    [Route("employer/job")]
+    [Authorize(Roles = "Employer")]
     public class JobController : Controller
     {
         private readonly DataDbContext _context;
@@ -77,7 +77,7 @@ namespace CareerFIZ.Areas.HRStaff.Controllers
                 };
                 _context.Jobs.Add(job);
                 await _context.SaveChangesAsync();
-                return Redirect("/HRStaff/job/" + id);
+                return Redirect("/employer/job/" + id);
             }
             return View(model);
         }
@@ -150,7 +150,7 @@ namespace CareerFIZ.Areas.HRStaff.Controllers
 
                 _context.Jobs.Update(job);
                 await _context.SaveChangesAsync();
-                return Redirect("/HRStaff/job/" + job.AppUserId);
+                return Redirect("/employer/job/" + job.AppUserId);
             }
             return View(model);
         }
@@ -178,7 +178,7 @@ namespace CareerFIZ.Areas.HRStaff.Controllers
                 _context.Jobs.Remove(job);
 
                 _context.SaveChanges();
-                return Redirect("/HRStaff/job/" + job.AppUserId);
+                return Redirect("/employer/job/" + job.AppUserId);
             }
             catch (Exception)
             {

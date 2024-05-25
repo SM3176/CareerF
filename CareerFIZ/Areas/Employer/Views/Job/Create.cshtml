@@ -90,6 +90,12 @@
                                         <input style="background-color:forestgreen" type="button" onclick="onCreate()" value="Create" class="btn btn-primary" />
                                     </div>
                                     <br />
+                                    <div class="form-group">
+                                        <label asp-for="isSponsor" class="control-label"></label><span class="text-danger">*</span>
+                                        <input type="checkbox" asp-for="isSponsor" class="form-control">
+                                        <label asp-for="isSponsor" class="control-label">Sponsor?</label>
+                                    </div>
+                                    <br />
                                     <div class="form-group text-center">
                                         <a class="btn btn-primary" href="/employer/job/@user.Id">Back to List</a>
                                     </div>

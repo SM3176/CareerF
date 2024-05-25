@@ -34,7 +34,7 @@ namespace CareerFIZ.Extentions
                 Name = "User",
                 NormalizedName = "USER",
                 Description = "User role"
-            });          
+            });
 
             var hasher = new PasswordHasher<AppUser>();
 

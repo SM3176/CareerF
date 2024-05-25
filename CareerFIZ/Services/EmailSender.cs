@@ -11,7 +11,7 @@ using SendGrid.Helpers.Mail;
 
 namespace CareerFIZ.Services
 {
-    internal class EmailSender: IEmailSender
+    public class EmailSender: IEmailSender
     {
         private readonly ILogger _logger;
 
@@ -38,7 +38,7 @@ namespace CareerFIZ.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("careerfiz258@gmail.com", "Q!W@E#R$T%y6u7i8o9p0"),
+                From = new EmailAddress("careerfiz123@gmail.com", "CareerFIZ"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message

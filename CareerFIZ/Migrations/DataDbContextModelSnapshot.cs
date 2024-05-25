@@ -22,6 +22,21 @@ namespace JobPortal.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AppRoleAppUser", b =>
+                {
+                    b.Property<Guid>("RolesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("AppRoleAppUser");
+                });
+
             modelBuilder.Entity("CareerFIZ.Models.AppRole", b =>
                 {
                     b.Property<Guid>("Id")
@@ -57,7 +72,10 @@ namespace JobPortal.Data.Migrations
                         new
                         {
                             Id = new Guid("9f685d0f-bd6f-44dd-ab60-c606952eb2a8"),
-                            ConcurrencyStamp = "f365fdb1-1e95-4e59-bbbd-0f4633a23ce6",
+<<<<<<< HEAD
+=======
+                            ConcurrencyStamp = "58c0b45d-8a39-4ec0-bd70-15d101f8bfbc",
+>>>>>>> parent of 56d1541 (more updates)
                             Description = "Administrator role",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -65,7 +83,10 @@ namespace JobPortal.Data.Migrations
                         new
                         {
                             Id = new Guid("4e233be7-c199-4567-9c07-9271a9de4c64"),
-                            ConcurrencyStamp = "0dd2983e-710b-42c0-9903-eb99e0c6108c",
+<<<<<<< HEAD
+=======
+                            ConcurrencyStamp = "a8766a5b-69ba-43aa-bafd-bf6b849d913f",
+>>>>>>> parent of 56d1541 (more updates)
                             Description = "Employer role",
                             Name = "Employer",
                             NormalizedName = "EMPLOYER"
@@ -73,7 +94,10 @@ namespace JobPortal.Data.Migrations
                         new
                         {
                             Id = new Guid("376c1d1e-0b04-47da-9657-a2a87faf0a59"),
-                            ConcurrencyStamp = "0264f295-80ce-44cf-a890-60b6c33cfaf1",
+<<<<<<< HEAD
+=======
+                            ConcurrencyStamp = "e4151974-d25e-4722-b0ca-96cdafbcdb53",
+>>>>>>> parent of 56d1541 (more updates)
                             Description = "User role",
                             Name = "User",
                             NormalizedName = "USER"
@@ -194,9 +218,6 @@ namespace JobPortal.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("VipLv")
-                        .HasColumnType("int");
-
                     b.Property<string>("WebsiteURL")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -227,8 +248,12 @@ namespace JobPortal.Data.Migrations
                         {
                             Id = new Guid("769f41bd-ccd4-45ba-abbd-550ccd0b62e3"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "827021fe-685a-43d4-9b64-4be784ebbc42",
-                            CreateDate = new DateTime(2024, 5, 22, 10, 56, 17, 419, DateTimeKind.Local).AddTicks(4752),
+<<<<<<< HEAD
+                            CreateDate = new DateTime(2024, 5, 25, 19, 27, 33, 106, DateTimeKind.Local).AddTicks(7088),
+=======
+                            ConcurrencyStamp = "7d93635e-f542-4913-bd69-64f7720f62f6",
+                            CreateDate = new DateTime(2024, 5, 11, 17, 28, 39, 411, DateTimeKind.Local).AddTicks(287),
+>>>>>>> parent of 56d1541 (more updates)
                             Disable = false,
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -236,7 +261,11 @@ namespace JobPortal.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN/zs1h2QzhcoIt5VXY0aFaILq4IZwQM/9rNVqXJfpfirG2ERVcgR+jCA87ks8PSlQ==",
+<<<<<<< HEAD
+                            PasswordHash = "AQAAAAEAACcQAAAAENyvYEa0Sw2aJvOSMnRNKuqgFWv+0mAlAohKTRJblwvB+xfsviluJPwg5QZsNyHFRg==",
+=======
+                            PasswordHash = "AQAAAAEAACcQAAAAEIeCStR+p8nHDIxyMbIiZMf2KqwqIHQxQYqzMv01EOVhhvtnXQFdP5TyAJRNuRnFhw==",
+>>>>>>> parent of 56d1541 (more updates)
                             PhoneNumberConfirmed = false,
                             Popular = 0,
                             SecurityStamp = "",
@@ -244,8 +273,7 @@ namespace JobPortal.Data.Migrations
                             Status = -1,
                             TwoFactorEnabled = false,
                             UrlAvatar = "default_admin.png",
-                            UserName = "admin@gmail.com",
-                            VipLv = 0
+                            UserName = "admin@gmail.com"
                         });
                 });
 
@@ -593,9 +621,14 @@ namespace JobPortal.Data.Migrations
                     b.Property<int>("TitleId")
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     b.Property<bool>("isSponser")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
+=======
+>>>>>>> parent of 56d1541 (more updates)
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
@@ -611,6 +644,7 @@ namespace JobPortal.Data.Migrations
                     b.ToTable("Jobs", (string)null);
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("CareerFIZ.Models.Log", b =>
                 {
                     b.Property<int>("Id")
@@ -624,13 +658,12 @@ namespace JobPortal.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ActionTime")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("IPAddress")
+                    b.Property<string>("Ipaddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -641,6 +674,8 @@ namespace JobPortal.Data.Migrations
                     b.ToTable("Log");
                 });
 
+=======
+>>>>>>> parent of 56d1541 (more updates)
             modelBuilder.Entity("CareerFIZ.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -650,14 +685,12 @@ namespace JobPortal.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("PaymentDate")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -1004,9 +1037,24 @@ namespace JobPortal.Data.Migrations
                     b.ToTable("AppUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AppRoleAppUser", b =>
+                {
+                    b.HasOne("CareerFIZ.Models.AppRole", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CareerFIZ.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CareerFIZ.Models.AppUser", b =>
                 {
-                    b.HasOne("CareerFIZ.Models.Category", null)
+                    b.HasOne("CareerFIZ.Models.Category", "Category")
                         .WithMany("AppUsers")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1017,9 +1065,11 @@ namespace JobPortal.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("CareerFIZ.Models.Province", "Province")
-                        .WithMany()
+                        .WithMany("AppUsers")
                         .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Category");
 
                     b.Navigation("Country");
 
@@ -1029,13 +1079,13 @@ namespace JobPortal.Data.Migrations
             modelBuilder.Entity("CareerFIZ.Models.CV", b =>
                 {
                     b.HasOne("CareerFIZ.Models.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Cvs")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CareerFIZ.Models.Job", "Job")
-                        .WithMany("CVs")
+                        .WithMany("Cvs")
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1054,7 +1104,7 @@ namespace JobPortal.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CareerFIZ.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Jobs")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -1087,10 +1137,11 @@ namespace JobPortal.Data.Migrations
                     b.Navigation("Title");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("CareerFIZ.Models.Log", b =>
                 {
                     b.HasOne("CareerFIZ.Models.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Logs")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1098,15 +1149,17 @@ namespace JobPortal.Data.Migrations
                     b.Navigation("AppUser");
                 });
 
+=======
+>>>>>>> parent of 56d1541 (more updates)
             modelBuilder.Entity("CareerFIZ.Models.Payment", b =>
                 {
-                    b.HasOne("CareerFIZ.Models.AppUser", "AppUsers")
-                        .WithMany()
+                    b.HasOne("CareerFIZ.Models.AppUser", "AppUser")
+                        .WithMany("Payments")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("AppUsers");
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("CareerFIZ.Models.Province", b =>
@@ -1210,12 +1263,20 @@ namespace JobPortal.Data.Migrations
 
             modelBuilder.Entity("CareerFIZ.Models.AppUser", b =>
                 {
+                    b.Navigation("Cvs");
+
                     b.Navigation("Jobs");
+
+                    b.Navigation("Logs");
+
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("CareerFIZ.Models.Category", b =>
                 {
                     b.Navigation("AppUsers");
+
+                    b.Navigation("Jobs");
 
                     b.Navigation("Provinces");
 
@@ -1231,11 +1292,13 @@ namespace JobPortal.Data.Migrations
 
             modelBuilder.Entity("CareerFIZ.Models.Job", b =>
                 {
-                    b.Navigation("CVs");
+                    b.Navigation("Cvs");
                 });
 
             modelBuilder.Entity("CareerFIZ.Models.Province", b =>
                 {
+                    b.Navigation("AppUsers");
+
                     b.Navigation("Jobs");
                 });
 

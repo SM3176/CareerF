@@ -35,5 +35,7 @@ namespace CareerFIZ.ViewModel
         public List<int> SkillIds { get; set; }
         [Display(Name = "Title")]
         public int TitleId { get; set; }
+        [Display(Name = "Sponsor")]
+        public bool isSponsor {  get; set; }
     }
 }

@@ -79,7 +79,22 @@
 		<div class="container">
 			<div class="row">											
 			</div>
-
+			@if (isSignedIn)
+			{
+				<form method="post" asp-controller="Account" asp-action="DeleteUser">
+					<span style="color:red">YOU CAN DELETE YOUR ACCOUNT HERE</span>
+					<span id="confirmDeleteSpan" style="display:none">						
+						<button type="submit" class="btn btn-danger">Yes</button>
+						<a href="#" class="btn btn-primary"
+						   onclick="confirmDelete(false)">No</a>
+					</span>
+					<span id="deleteSpan">
+						<a href="#" class="btn btn-danger"
+						   onclick="confirmDelete(true)">Delete</a>
+					</span>
+				</form>
+			}
+			
 			<div class="row footer-bottom d-flex justify-content-between">
 				<p class="col-lg-8 col-sm-12 footer-text m-0 text-white">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -90,54 +105,19 @@
 		</div>
 	</footer>
 	<!-- End footer Area -->
-
-	<!-- Register -->
-	@if (isSignedIn)
-	{
-		@if (@account.Status == null)
-		{
-			<div class="buy-now">
-				<button href="#" data-toggle="modal" data-target="#viewRegister" class="btn btn-danger btn-buy-now">Register to Employer</button>
-			</div>
-
-			<!-- Modal -->
-			<div class="modal fade" id="viewRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header bg-primary">
-							<h5 style="color: white" class="modal-title" id="exampleModalLabel">
-								Become an employer to recruit great IT talents with CareerFIZ
-							</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<img style="width: 100%; max-width: 400px; height: auto; display: block; margin: 0 auto 20px;" src="/images/default/ads.jpg" alt="ads image">
-										<p>By registering as an employer, you gain access to numerous benefits:</p>
-										<ul class="unordered-list">
-											<li>Ability to post job listings and reach a wider audience</li>
-											<li>Manage and track applications efficiently</li>
-											<li>Build your company's brand and reputation</li>
-										</ul>
-										<p style="text-align: center">Don't miss out on these advantages. Register now!</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<a href="/register-employer/register/@account.Id" class="btn btn-primary">Register now</a>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
+	<script>
+		function confirmDelete(isDeleteClicked) {
+			var deleteSpan = 'deleteSpan';
+			var confirmDeleteSpan = 'confirmDeleteSpan';
+			if (isDeleteClicked) {
+				$('#' + deleteSpan).hide();
+				$('#' + confirmDeleteSpan).show();
+			} else {
+				$('#' + deleteSpan).show();
+				$('#' + confirmDeleteSpan).hide();
+			}
 		}
-	}
-
+	</script>
 	<script src="~/assets/user/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="~/assets/user/js/vendor/bootstrap.min.js"></script>

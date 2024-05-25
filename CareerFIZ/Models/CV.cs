@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CareerFIZ.Models
 {
@@ -63,5 +65,6 @@ namespace CareerFIZ.Models
         [Display(Name = "Email")]
         [StringLength(50, ErrorMessage = "The email cannot be more than 50 characters.")]
         public string? EmployerEmail { get; set; }
+
     }
 }

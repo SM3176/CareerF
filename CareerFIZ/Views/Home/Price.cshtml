@@ -1,11 +1,4 @@
-﻿@using CareerFIZ.Models
-@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Http
-@inject SignInManager<AppUser> signInManager
-@inject UserManager<AppUser> userManager
-
-@{
-	var user = await userManager.GetUserAsync(User);
+﻿@{
 	Layout = "_Layout";
 }
 
@@ -30,7 +23,8 @@
 		<div class="row d-flex justify-content-center">
 			<div class="menu-content pb-60 col-lg-8">
 				<div class="title text-center">
-					<h1 class="mb-10">Choose the best pricing for you</h1>					
+					<h1 class="mb-10">Choose the best pricing for you</h1>
+					<p>Who are in extremely love with eco friendly system.</p>
 				</div>
 			</div>
 		</div>
@@ -45,14 +39,12 @@
 						<li>Secure Online Transfer</li>
 						<li>Unlimited Styles</li>
 						<li>Customer Service</li>
-						<li>Applicant Management</li>
-						<li></li>						
 					</ul>
 					<div class="price-bottom">
 						<div class="price-wrap d-flex flex-row justify-content-center">
 							<span class="price">$</span><h1> 39 </h1><span class="time">Per <br> Month</span>
 						</div>
-						<a href="/Payment" class="primary-btn header-btn">Get Started</a>
+						<a href="#" class="primary-btn header-btn">Get Started</a>
 					</div>
 
 				</div>
@@ -67,8 +59,6 @@
 						<li>Secure Online Transfer</li>
 						<li>Unlimited Styles</li>
 						<li>Customer Service</li>
-						<li>Applicant Management</li>
-						<li>Auto Applicant Management</li>
 					</ul>
 					<div class="price-bottom">
 						<div class="price-wrap d-flex flex-row justify-content-center">
@@ -88,8 +78,6 @@
 						<li>Secure Online Transfer</li>
 						<li>Unlimited Styles</li>
 						<li>Customer Service</li>
-						<li>Applicant Management</li>
-						<li>Auto Applicant Management</li>
 					</ul>
 					<div class="price-bottom">
 						<div class="price-wrap d-flex flex-row justify-content-center">
@@ -103,9 +91,3 @@
 	</div>
 </section>
 <!-- End price Area -->
-<script>
-	//redirect to payment page
-	function redirectToPayment(packageId) {
-		window.location.href = "/Payment/"+ packageId;
-	}
-</script>

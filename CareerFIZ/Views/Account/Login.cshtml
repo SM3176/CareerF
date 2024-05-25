@@ -7,7 +7,7 @@
 <!-- /Logo -->
 <h4 class="mb-2">Welcome to Sneat! 👋</h4>
 <p class="mb-4">Please sign-in to your account and start the adventure</p>
-
+@if(TempData["lok"] != null){<p class="text-danger"></p>}
 <form asp-action="Login" asp-controller="Account" id="account" class="mb-3" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="mb-3">
@@ -55,6 +55,8 @@
     <a href="/register">
         <span>Create an account</span>
     </a>
+    <br />    
+    <a asp-controller="Account" asp-action="ForgotPassword"><span>Forgot Password?</span></a>
 </p>
 
 <a href="/employer/login"

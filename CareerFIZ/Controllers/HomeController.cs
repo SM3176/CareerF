@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using CareerFIZ.Models;
 using System.Diagnostics;
 using CareerFIZ.DataContext;
+using System.Linq;
 
 namespace CareerFIZ.Controllers
 {
@@ -14,7 +15,7 @@ namespace CareerFIZ.Controllers
         {
             _context = dataDbContext;
         }
-
+        [Route("")]
         public IActionResult Index()
         {
             var random = new Random();
@@ -26,24 +27,30 @@ namespace CareerFIZ.Controllers
             ViewBag.FilterProvinces = _context.Provinces.OrderBy(p => p.Id).ToList();
             ViewBag.FilterSkills = _context.Skills.OrderBy(s => s.Name).ToList();
 
+<<<<<<< HEAD
             //sponsor employers - 4
-            var employerList = _context.Users.Where(e => e.Status == 2).Where(s => s.VipLv>1).Include(e => e.Province).Include(e => e.Jobs).ToList();
+            var employerList = _context.Users.Where(e => e.Status == 2).Where(s => s.VipLv == 3).Include(e => e.Province).Include(e => e.Jobs).ToList();
             ViewBag.SponsorEmployers = employerList.OrderBy(e => Guid.NewGuid()).Where(e => e.Jobs.Count > 0).Take(4).ToList();
+=======
+            //random employers - 4
+            var employerList = _context.Users.Where(e => e.Status == 2).Include(e => e.Province).Include(e => e.Jobs).ToList();
+            ViewBag.RandomEmployers = employerList.OrderBy(e => Guid.NewGuid()).Where(e => e.Jobs.Count > 0).Take(4).ToList();
+>>>>>>> parent of 56d1541 (more updates)
 
             //random skills - 6
             var skillList = _context.Skills.ToList();
             ViewBag.RandomSkills = skillList.OrderBy(s => random.Next()).Take(6).ToList();
 
-            //sponsor jobs - 6
-            var jobList = _context.Jobs.Where(j=>j.isSponser == true)
+            //random jobs - 6
+            var jobList = _context.Jobs
                 .Include(j => j.Province)
                 .Include(j => j.AppUser)
                 .Include(j => j.Title)
                 .Include(j => j.Time)
                 .Include(j => j.Skills)
                 .ToList();
-            var SponsorJob = jobList.OrderByDescending(j => j.CreateDate).Take(6).ToList();
-            ViewBag.SponsorJobs = SponsorJob;
+            var randomJobs = jobList.OrderBy(j => random.Next()).Take(6).ToList();
+            ViewBag.RandomJobs = randomJobs;
 
             return View(jobs);
         }
