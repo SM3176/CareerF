@@ -1,11 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using CareerFIZ.Common;
-
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace CareerFIZ.Models
 {
-    public class Job
+    public partial class Job
     {
+        public Job()
+        {
+            Cvs = new HashSet<Cv>();
+            Skills = new HashSet<Skill>();
+        }
+
         public int Id { get; set; }
         [Display(Name = "Name")]
         [Required(ErrorMessage = "Please enter product name.")]
@@ -13,10 +18,8 @@ namespace CareerFIZ.Models
         public string Name { get; set; }
         [Required]
         public string Slug { get; set; }
-        public Category? Category { get; set; }
         [Display(Name = "Category")]
         public int? CategoryId { get; set; }
-        public Title? Title { get; set; }
         [Display(Name = "Title")]
         public int TitleId { get; set; }
         [Display(Name = "Description")]
@@ -30,11 +33,10 @@ namespace CareerFIZ.Models
         [Display(Name = "Create date")]
         public DateTime? CreateDate { get; set; }
         public int Popular { get; set; }
-        public Province? Province { get; set; }
         [Display(Name = "Province")]
         public int ProvinceId { get; set; }
-        public Time? Time { get; set; }
-        [Display(Name = "Working type")]
+		public virtual Time Time { get; set; } = null!;
+		[Display(Name = "Working type")]
         public int TimeId { get; set; }
         [Display(Name = "Min salary")]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter valid salary.")]
@@ -42,12 +44,19 @@ namespace CareerFIZ.Models
         [Display(Name = "Max salary")]
         [Range(1, int.MaxValue, ErrorMessage = "Please enter valid salary.")]
         //[SalaryRange("MinSalary")] //Salary Range Validation Attribute
-        public int? MaxSalary { get; set; }        
+        public int? MaxSalary { get; set; }
         public bool isSponser {  get; set; }
-        public AppUser? AppUser { get; set; }
         [Display(Name = "Employer")]
         public Guid AppUserId { get; set; }
+        public bool? IsSponser { get; set; }
+
+        public virtual AppUser AppUser { get; set; } = null!;
+        public virtual Category? Category { get; set; }
+        public virtual Province Province { get; set; } = null!;
+        
+        public virtual Title Title { get; set; } = null!;
+        public virtual ICollection<Cv> Cvs { get; set; }
+
         public virtual ICollection<Skill> Skills { get; set; }
-        public ICollection<CV>? CVs { get; set; }
     }
 }

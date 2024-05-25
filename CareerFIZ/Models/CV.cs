@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace CareerFIZ.Models
 {
-    public class CV
+    public partial class Cv
     {
         public int Id { get; set; }
         [Display(Name = "Certificate")]
@@ -63,5 +64,6 @@ namespace CareerFIZ.Models
         [Display(Name = "Email")]
         [StringLength(50, ErrorMessage = "The email cannot be more than 50 characters.")]
         public string? EmployerEmail { get; set; }
+
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CareerFIZ.Services
 {
-    internal class AuthMessageSenderOptions
+    public class AuthMessageSenderOptions
     {
         public string? SendGridKey { get; set; }
     }

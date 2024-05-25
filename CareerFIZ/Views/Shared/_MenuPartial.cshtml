@@ -28,17 +28,18 @@
     <ul>
         @if (isInRoleEmployer)
         {
+
             <li><a href="/register-employer/update/@account.Id">update information</a></li>
             <li><a href="/change-password">change password</a></li>
             <hr />
+            <li><a href="/price">price</a></li>
         }
         else if(isInRoleUser)
         {
             <li><a href="/change-password">change password</a></li>
-            <hr />
+            <hr />            
         }
-        <li><a href="/search">search</a></li>
-        <li><a href="/price">price</a></li>
+        <li><a href="/search">search</a></li>        
         <li><a href="/about-us">about us</a></li>
         <li><a href="/contact">contact</a></li>
         <li><a href="/elements">elements</a></li>
@@ -71,7 +72,7 @@
             <a href="#" class="ticker-btn">Hi, @(account.FullName ?? account.UserName)</a>
         </li>
         <li>
-            <a href="/hrstaff" class="ticker-btn">Staff Site</a>
+            <a href="/employer/index/@account.Id" class="ticker-btn">Staff Site</a>
         </li>
     }
     else

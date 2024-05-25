@@ -14,7 +14,7 @@ namespace CareerFIZ.Controllers
         {
             _context = dataDbContext;
         }
-
+        [Route("")]
         public IActionResult Index()
         {
             var random = new Random();
@@ -27,7 +27,7 @@ namespace CareerFIZ.Controllers
             ViewBag.FilterSkills = _context.Skills.OrderBy(s => s.Name).ToList();
 
             //sponsor employers - 4
-            var employerList = _context.Users.Where(e => e.Status == 2).Where(s => s.VipLv>1).Include(e => e.Province).Include(e => e.Jobs).ToList();
+            var employerList = _context.Users.Where(e => e.Status == 2).Where(s => s.VipLv == 3).Include(e => e.Province).Include(e => e.Jobs).ToList();
             ViewBag.SponsorEmployers = employerList.OrderBy(e => Guid.NewGuid()).Where(e => e.Jobs.Count > 0).Take(4).ToList();
 
             //random skills - 6
