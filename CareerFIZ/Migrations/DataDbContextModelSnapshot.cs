@@ -72,10 +72,6 @@ namespace JobPortal.Data.Migrations
                         new
                         {
                             Id = new Guid("9f685d0f-bd6f-44dd-ab60-c606952eb2a8"),
-<<<<<<< HEAD
-=======
-                            ConcurrencyStamp = "58c0b45d-8a39-4ec0-bd70-15d101f8bfbc",
->>>>>>> parent of 56d1541 (more updates)
                             Description = "Administrator role",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -83,10 +79,6 @@ namespace JobPortal.Data.Migrations
                         new
                         {
                             Id = new Guid("4e233be7-c199-4567-9c07-9271a9de4c64"),
-<<<<<<< HEAD
-=======
-                            ConcurrencyStamp = "a8766a5b-69ba-43aa-bafd-bf6b849d913f",
->>>>>>> parent of 56d1541 (more updates)
                             Description = "Employer role",
                             Name = "Employer",
                             NormalizedName = "EMPLOYER"
@@ -94,10 +86,6 @@ namespace JobPortal.Data.Migrations
                         new
                         {
                             Id = new Guid("376c1d1e-0b04-47da-9657-a2a87faf0a59"),
-<<<<<<< HEAD
-=======
-                            ConcurrencyStamp = "e4151974-d25e-4722-b0ca-96cdafbcdb53",
->>>>>>> parent of 56d1541 (more updates)
                             Description = "User role",
                             Name = "User",
                             NormalizedName = "USER"
@@ -248,12 +236,7 @@ namespace JobPortal.Data.Migrations
                         {
                             Id = new Guid("769f41bd-ccd4-45ba-abbd-550ccd0b62e3"),
                             AccessFailedCount = 0,
-<<<<<<< HEAD
                             CreateDate = new DateTime(2024, 5, 25, 19, 27, 33, 106, DateTimeKind.Local).AddTicks(7088),
-=======
-                            ConcurrencyStamp = "7d93635e-f542-4913-bd69-64f7720f62f6",
-                            CreateDate = new DateTime(2024, 5, 11, 17, 28, 39, 411, DateTimeKind.Local).AddTicks(287),
->>>>>>> parent of 56d1541 (more updates)
                             Disable = false,
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -261,11 +244,7 @@ namespace JobPortal.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-<<<<<<< HEAD
                             PasswordHash = "AQAAAAEAACcQAAAAENyvYEa0Sw2aJvOSMnRNKuqgFWv+0mAlAohKTRJblwvB+xfsviluJPwg5QZsNyHFRg==",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEIeCStR+p8nHDIxyMbIiZMf2KqwqIHQxQYqzMv01EOVhhvtnXQFdP5TyAJRNuRnFhw==",
->>>>>>> parent of 56d1541 (more updates)
                             PhoneNumberConfirmed = false,
                             Popular = 0,
                             SecurityStamp = "",
@@ -621,14 +600,11 @@ namespace JobPortal.Data.Migrations
                     b.Property<int>("TitleId")
                         .HasColumnType("int");
 
-<<<<<<< HEAD
                     b.Property<bool>("isSponser")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-=======
->>>>>>> parent of 56d1541 (more updates)
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
@@ -644,7 +620,6 @@ namespace JobPortal.Data.Migrations
                     b.ToTable("Jobs", (string)null);
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("CareerFIZ.Models.Log", b =>
                 {
                     b.Property<int>("Id")
@@ -674,8 +649,6 @@ namespace JobPortal.Data.Migrations
                     b.ToTable("Log");
                 });
 
-=======
->>>>>>> parent of 56d1541 (more updates)
             modelBuilder.Entity("CareerFIZ.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -1137,7 +1110,6 @@ namespace JobPortal.Data.Migrations
                     b.Navigation("Title");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("CareerFIZ.Models.Log", b =>
                 {
                     b.HasOne("CareerFIZ.Models.AppUser", "AppUser")
@@ -1149,8 +1121,6 @@ namespace JobPortal.Data.Migrations
                     b.Navigation("AppUser");
                 });
 
-=======
->>>>>>> parent of 56d1541 (more updates)
             modelBuilder.Entity("CareerFIZ.Models.Payment", b =>
                 {
                     b.HasOne("CareerFIZ.Models.AppUser", "AppUser")

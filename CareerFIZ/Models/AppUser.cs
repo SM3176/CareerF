@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-<<<<<<< HEAD
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-=======
->>>>>>> parent of 56d1541 (more updates)
 using System.ComponentModel.DataAnnotations;
 
 namespace CareerFIZ.Models
@@ -77,7 +74,6 @@ namespace CareerFIZ.Models
         [Display(Name = "Content")]
         public string? Content { get; set; }
         public int Popular { get; set; }
-<<<<<<< HEAD
         [DefaultValue(0)]
         public int VipLv { get; set; }
 
@@ -90,7 +86,5 @@ namespace CareerFIZ.Models
         public virtual ICollection<Payment> Payments { get; set; }
 
         public virtual ICollection<AppRole> Roles { get; set; }
-=======
->>>>>>> parent of 56d1541 (more updates)
     }
 }

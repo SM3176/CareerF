@@ -9,6 +9,7 @@
     var isInRoleUser = User.IsInRole("User");
     var isInRoleEmployer = User.IsInRole("Employer");
     var isInRoleAdmin = User.IsInRole("Admin");
+    var isInRoleHRStaff = User.IsInRole("HRStaff");
 }
 
 <li class="menu-active"><a href="/">Home</a></li>
@@ -65,7 +66,6 @@
             <a href="/admin" class="ticker-btn">Admin Site</a>
         </li>
     }
-<<<<<<< HEAD
     else if (isInRoleHRStaff)
     {
         <li>
@@ -75,8 +75,7 @@
             <a href="/employer/index/@account.Id" class="ticker-btn">Staff Site</a>
         </li>
     }
-=======
->>>>>>> parent of 56d1541 (more updates)
+
     else
     {
         <li>

@@ -27,15 +27,9 @@ namespace CareerFIZ.Controllers
             ViewBag.FilterProvinces = _context.Provinces.OrderBy(p => p.Id).ToList();
             ViewBag.FilterSkills = _context.Skills.OrderBy(s => s.Name).ToList();
 
-<<<<<<< HEAD
             //sponsor employers - 4
             var employerList = _context.Users.Where(e => e.Status == 2).Where(s => s.VipLv == 3).Include(e => e.Province).Include(e => e.Jobs).ToList();
             ViewBag.SponsorEmployers = employerList.OrderBy(e => Guid.NewGuid()).Where(e => e.Jobs.Count > 0).Take(4).ToList();
-=======
-            //random employers - 4
-            var employerList = _context.Users.Where(e => e.Status == 2).Include(e => e.Province).Include(e => e.Jobs).ToList();
-            ViewBag.RandomEmployers = employerList.OrderBy(e => Guid.NewGuid()).Where(e => e.Jobs.Count > 0).Take(4).ToList();
->>>>>>> parent of 56d1541 (more updates)
 
             //random skills - 6
             var skillList = _context.Skills.ToList();

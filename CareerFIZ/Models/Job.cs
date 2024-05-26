@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-=======
-﻿using System.ComponentModel.DataAnnotations;
-using CareerFIZ.Common;
-
->>>>>>> parent of 56d1541 (more updates)
 namespace CareerFIZ.Models
 {
     public partial class Job
@@ -52,12 +46,8 @@ namespace CareerFIZ.Models
         [Range(1, int.MaxValue, ErrorMessage = "Please enter valid salary.")]
         //[SalaryRange("MinSalary")] //Salary Range Validation Attribute
         public int? MaxSalary { get; set; }
-<<<<<<< HEAD
         [DefaultValue(false)]
         public bool isSponser {  get; set; }
-=======
-        public AppUser? AppUser { get; set; }
->>>>>>> parent of 56d1541 (more updates)
         [Display(Name = "Employer")]
         public Guid AppUserId { get; set; }
 
