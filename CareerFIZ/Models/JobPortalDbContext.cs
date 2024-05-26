@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CareerFIZ.Models
 {
-    public partial class JobPortalDbContext : DbContext
+    public partial class jobportaldbContext : DbContext
     {
-        public JobPortalDbContext()
+        public jobportaldbContext()
         {
         }
 
-        public JobPortalDbContext(DbContextOptions<JobPortalDbContext> options)
+        public jobportaldbContext(DbContextOptions<jobportaldbContext> options)
             : base(options)
         {
         }
@@ -32,15 +32,7 @@ namespace CareerFIZ.Models
         public virtual DbSet<Skill> Skills { get; set; } = null!;
         public virtual DbSet<Time> Times { get; set; } = null!;
         public virtual DbSet<Title> Titles { get; set; } = null!;
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("server=ASO\\SQLEXPRESS;Database=JobPortalDb;Trusted_Connection=True;");
-            }
-        }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -57,6 +49,21 @@ namespace CareerFIZ.Models
                 entity.Property(e => e.Name).HasMaxLength(256);
 
                 entity.Property(e => e.NormalizedName).HasMaxLength(256);
+
+                entity.HasMany(d => d.Users)
+                    .WithMany(p => p.Roles)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "AppRoleAppUser",
+                        l => l.HasOne<AppUser>().WithMany().HasForeignKey("UsersId").OnDelete(DeleteBehavior.ClientSetNull),
+                        r => r.HasOne<AppRole>().WithMany().HasForeignKey("RolesId").OnDelete(DeleteBehavior.ClientSetNull),
+                        j =>
+                        {
+                            j.HasKey("RolesId", "UsersId");
+
+                            j.ToTable("AppRoleAppUser");
+
+                            j.HasIndex(new[] { "UsersId" }, "IX_AppRoleAppUser_UsersId");
+                        });
             });
 
             modelBuilder.Entity<AppRoleClaim>(entity =>
@@ -101,7 +108,7 @@ namespace CareerFIZ.Models
 
                 entity.Property(e => e.WebsiteUrl)
                     .HasMaxLength(50)
-                    .HasColumnName("WebsiteURL");
+                    .HasColumnName("WebsiteUrl");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.AppUsers)
@@ -118,8 +125,8 @@ namespace CareerFIZ.Models
                     .HasForeignKey(d => d.ProvinceId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasMany(d => d.Roles)
-                    .WithMany(p => p.Users)
+                entity.HasMany(d => d.RolesNavigation)
+                    .WithMany(p => p.UsersNavigation)
                     .UsingEntity<Dictionary<string, object>>(
                         "AppUserRole",
                         l => l.HasOne<AppRole>().WithMany().HasForeignKey("RoleId").OnDelete(DeleteBehavior.ClientSetNull),
@@ -229,10 +236,7 @@ namespace CareerFIZ.Models
 
                 entity.HasIndex(e => e.TitleId, "IX_Jobs_TitleId");
 
-                entity.Property(e => e.IsSponser)
-                    .IsRequired()
-                    .HasColumnName("isSponser")
-                    .HasDefaultValueSql("(CONVERT([bit],(0)))");
+                entity.Property(e => e.IsSponser).HasDefaultValueSql("(CONVERT([bit],(0)))");
 
                 entity.Property(e => e.Name).HasMaxLength(100);
 
@@ -282,8 +286,6 @@ namespace CareerFIZ.Models
                 entity.HasIndex(e => e.AppUserId, "IX_Log_AppUserId");
 
                 entity.Property(e => e.AppUserId).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.Ipaddress).HasColumnName("IPAddress");
 
                 entity.HasOne(d => d.AppUser)
                     .WithMany(p => p.Logs)

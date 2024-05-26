@@ -4,16 +4,15 @@ using Microsoft.AspNetCore.Authorization;
 using CareerFIZ.ViewModel;
 using CareerFIZ.Models;
 using CareerFIZ.Common;
-using CareerFIZ.DataContext;
 
 namespace CareerFIZ.Controllers
 {
     [Route("apply")]
     public class ApplyController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public ApplyController(DataDbContext context)
+        public ApplyController(jobportaldbContext context)
         {
             _context = context;
         }
@@ -23,7 +22,7 @@ namespace CareerFIZ.Controllers
         [Authorize]
         public async Task<IActionResult> ListApplies(Guid id)
         {
-            var CVs = await (from cv in _context.CVs
+            var CVs = await (from cv in _context.Cvs
                              orderby cv.ApplyDate descending
                              select new CVsViewModel()
                              {
@@ -32,7 +31,7 @@ namespace CareerFIZ.Controllers
                                  Major = cv.Major,
                                  ApplyDate = cv.ApplyDate,
                                  GraduatedAt = cv.GraduatedAt,
-                                 GPA = cv.GPA,
+                                 GPA = cv.Gpa,
                                  Description = cv.Description,
                                  Introduce = cv.Introduce,
                                  CVEmail = cv.Email,
@@ -71,14 +70,14 @@ namespace CareerFIZ.Controllers
             {
                 string POST_IMAGE_PATH = "images/cvs/";
                 var image = UploadImage.UploadImageFile(model.UrlImage, POST_IMAGE_PATH);
-                CV cv = new()
+                Cv cv = new()
                 {
                     ApplyDate = DateTime.Now,
                     UrlImage = image,
                     Certificate = model.Certificate,
                     Major = model.Major,
                     GraduatedAt = model.GraduatedAt,
-                    GPA = model.GPA,
+                    Gpa = model.GPA,
                     Description = model.Description,
                     Introduce = model.Introduce,
                     Phone = model.Phone,
@@ -87,7 +86,7 @@ namespace CareerFIZ.Controllers
                     JobId = job.Id,
                     Status = 1 //waiting
                 };
-                _context.CVs.Add(cv);
+                _context.Cvs.Add(cv);
                 await _context.SaveChangesAsync();
                 return Redirect("/apply/" + id);
             }
@@ -99,9 +98,9 @@ namespace CareerFIZ.Controllers
         {
             try
             {
-                CV cv = _context.CVs.Where(cv => cv.Id == CVid).First();
+                Cv cv = _context.Cvs.Where(cv => cv.Id == CVid).First();
                 string imageName = cv.UrlImage;
-                _context.CVs.Remove(cv);
+                _context.Cvs.Remove(cv);
                 _context.SaveChanges();
                 if (!string.IsNullOrEmpty(imageName))
                 {
@@ -119,9 +118,9 @@ namespace CareerFIZ.Controllers
         [HttpGet("{id}/{CVid}/update/{status}")]
         public IActionResult UpdateCV(Guid id, int CVid, int status)
         {
-            CV cv = _context.CVs.Where(cv => cv.Id == CVid).First();
+            Cv cv = _context.Cvs.Where(cv => cv.Id == CVid).First();
             cv.Status = status;
-            _context.CVs.Update(cv);
+            _context.Cvs.Update(cv);
             _context.SaveChanges();
             return Redirect("/apply/" + id);
         }

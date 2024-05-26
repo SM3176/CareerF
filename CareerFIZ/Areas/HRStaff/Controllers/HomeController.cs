@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
-using CareerFIZ.DataContext;
+using CareerFIZ.Models;
+
 
 namespace CareerFIZ.Areas.HRStaff.Controllers
 {
@@ -11,9 +12,9 @@ namespace CareerFIZ.Areas.HRStaff.Controllers
     [Authorize(Roles = "HRStaff")]
     public class HomeController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public HomeController(DataDbContext context)
+        public HomeController(jobportaldbContext context)
         {
             _context = context;
         }
@@ -36,12 +37,12 @@ namespace CareerFIZ.Areas.HRStaff.Controllers
                 .ToList();
 
             //cv
-            ViewBag.cvCount = _context.CVs
+            ViewBag.cvCount = _context.Cvs
                 .Where(cv => cv.Job.AppUserId == id)
                 .Include(cv => cv.Job)
                 .Include(cv => cv.AppUser)
                 .Count();
-            ViewBag.cvList = _context.CVs
+            ViewBag.cvList = _context.Cvs
                 .Where(cv => cv.Job.AppUserId == id)
                 .OrderByDescending(cv => cv.ApplyDate)
                 .Include(cv => cv.AppUser)

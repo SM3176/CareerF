@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace CareerFIZ.Models
 {
@@ -12,13 +11,9 @@ namespace CareerFIZ.Models
         }
 
         public int Id { get; set; }
-        [Required(ErrorMessage = "Please enter title name")]
-        [StringLength(100, ErrorMessage = "The title name cannot be more than 100 characters.")]
-        public string Name { get; set; }
-        [Display(Name = "Category")]
+        public string Name { get; set; } = null!;
         public int CategoryId { get; set; }
         public bool? Disable { get; set; }
-        [Required]
         public string Slug { get; set; } = null!;
         public int Popular { get; set; }
 

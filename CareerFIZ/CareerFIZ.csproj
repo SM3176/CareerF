@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="DataContext\jobportaldbContext.cs" />
+    <Compile Remove="DataContext\jobportaldbContextFactory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Areas\HRStaff\Views\Apply\Index.cshtml" />
     <Content Remove="Views\Company\Index.cshtml" />
     <Content Remove="Views\Job\Index.cshtml" />
@@ -363,6 +368,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DataContext\" />
+    <Folder Include="Migrations\JobPortalDb\" />
     <Folder Include="wwwroot\images\cvs\" />
     <Folder Include="wwwroot\images\skills\" />
   </ItemGroup>

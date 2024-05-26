@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using CareerFIZ.Models;
 using CareerFIZ.Common;
-using CareerFIZ.DataContext;
+
 using CareerFIZ.ViewModel;
 
 namespace CareerFIZ.Areas.Admin.Controllers
@@ -15,9 +15,9 @@ namespace CareerFIZ.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ProvinceController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public ProvinceController(DataDbContext context)
+        public ProvinceController(jobportaldbContext context)
         {
             _context = context;
         }

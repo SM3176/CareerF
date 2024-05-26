@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using CareerFIZ.Models;
-using CareerFIZ.DataContext;
 using CareerFIZ.ViewModel;
 
 namespace CareerFIZ.Areas.Employer.Controllers
@@ -11,9 +10,9 @@ namespace CareerFIZ.Areas.Employer.Controllers
     [Route("employer/apply")]
     public class ApplyController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public ApplyController(DataDbContext context)
+        public ApplyController(jobportaldbContext context)
         {
             _context = context;
         }
@@ -23,7 +22,7 @@ namespace CareerFIZ.Areas.Employer.Controllers
         {
             int pageSize = 10; //number of CVs per page
             ViewBag.stat = status;
-            var CV = (from cv in _context.CVs
+            var CV = (from cv in _context.Cvs
                       orderby cv.Job.Name descending
                       select new CVsViewModel()
                       {
@@ -32,7 +31,7 @@ namespace CareerFIZ.Areas.Employer.Controllers
                           Major = cv.Major,
                           ApplyDate = cv.ApplyDate,
                           GraduatedAt = cv.GraduatedAt,
-                          GPA = cv.GPA,
+                          GPA = cv.Gpa,
                           Description = cv.Description,
                           Introduce = cv.Introduce,
                           UserId = cv.AppUserId,
@@ -78,9 +77,9 @@ namespace CareerFIZ.Areas.Employer.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateCVStatus(Guid id, int CVId, int status)
         {
-            var CV = await _context.CVs.FirstOrDefaultAsync(CV => CV.Id == CVId);
+            var CV = await _context.Cvs.FirstOrDefaultAsync(CV => CV.Id == CVId);
             CV.Status = status;
-            _context.CVs.Update(CV);
+            _context.Cvs.Update(CV);
             await _context.SaveChangesAsync();
             return Redirect("/employer/apply/" + id + "/" + status);
         }
@@ -89,7 +88,7 @@ namespace CareerFIZ.Areas.Employer.Controllers
         [HttpPost]
         public async Task<IActionResult> Feedback(Guid id, int CVId, CVsViewModel model)
         {
-            CV cv = _context.CVs.Where(cv => cv.Id == CVId).First();
+            Cv cv = _context.Cvs.Where(cv => cv.Id == CVId).First();
             cv.EmployerAddress = model.EmployerAddress;
             cv.EmployerEmail = model.EmployerEmail;
             cv.EmployerPhone = model.EmployerPhone;

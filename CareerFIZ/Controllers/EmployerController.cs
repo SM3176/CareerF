@@ -6,17 +6,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using CareerFIZ.Models;
 using CareerFIZ.Common;
 using CareerFIZ.ViewModel;
-using CareerFIZ.DataContext;
 
 namespace CareerFIZ.Controllers
 {
     [Route("register-employer")]
     public class EmployerController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
         private readonly UserManager<AppUser> userManager;
 
-        public EmployerController(UserManager<AppUser> userManager, DataDbContext context)
+        public EmployerController(UserManager<AppUser> userManager, jobportaldbContext context)
         {
             this.userManager = userManager;
             _context = context;
@@ -74,7 +73,7 @@ namespace CareerFIZ.Controllers
                     WorkingDays = model.WorkingDays,
                     CompanySize = model.CompanySize,
                     Location = model.Location,
-                    WebsiteURL = model.WebsiteURL,
+                    WebsiteUrl = model.WebsiteUrl,
                     ProvinceId = model.ProvinceId,
                     CountryId = model.CountryId,
                     Phone = model.Phone,
@@ -143,7 +142,7 @@ namespace CareerFIZ.Controllers
             employer.WorkingDays = model.WorkingDays;
             employer.CompanySize = model.CompanySize;
             employer.Location = model.Location;
-            employer.WebsiteURL = model.WebsiteURL;
+            employer.WebsiteUrl = model.WebsiteUrl;
             employer.ProvinceId = model.ProvinceId;
             employer.CountryId = model.CountryId;
             employer.Phone = model.Phone;
@@ -154,7 +153,7 @@ namespace CareerFIZ.Controllers
 
         private bool IsUsernameExists(string email)
         {
-            var existingUser = _context.Users.FirstOrDefault(u => u.Email == email);
+            var existingUser = _context.AppUsers.FirstOrDefault(u => u.Email == email);
             return existingUser != null;
         }
     }

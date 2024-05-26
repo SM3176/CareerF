@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using X.PagedList;
 using CareerFIZ.Models;
 using CareerFIZ.Common;
-using CareerFIZ.DataContext;
+
 using CareerFIZ.ViewModel;
 
 namespace CareerFIZ.Areas.Admin.Controllers
@@ -14,9 +14,9 @@ namespace CareerFIZ.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class TitleController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public TitleController(DataDbContext context)
+        public TitleController(jobportaldbContext context)
         {
             _context = context;
         }

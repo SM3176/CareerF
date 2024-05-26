@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CareerFIZ.Configurations
 {
-    public class CVConfiguration : IEntityTypeConfiguration<CV>
+    public class CVConfiguration : IEntityTypeConfiguration<Cv>
     {
-        public void Configure(EntityTypeBuilder<CV> builder)
+        public void Configure(EntityTypeBuilder<Cv> builder)
         {
             builder.ToTable("CVs");
             builder.HasKey(x => x.Id);
@@ -17,7 +17,7 @@ namespace CareerFIZ.Configurations
             builder.Property(x => x.GraduatedAt).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Phone).HasMaxLength(20).IsRequired();
             builder.Property(x => x.Email).HasMaxLength(50).IsRequired();
-            builder.Property(x => x.GPA).IsRequired();
+            builder.Property(x => x.Gpa).IsRequired();
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.Introduce).IsRequired();
             //Feedback

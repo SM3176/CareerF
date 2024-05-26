@@ -6,7 +6,7 @@ using X.PagedList;
 using NuGet.Packaging;
 using CareerFIZ.Models;
 using CareerFIZ.Common;
-using CareerFIZ.DataContext;
+
 using CareerFIZ.ViewModel;
 
 namespace CareerFIZ.Areas.Employer.Controllers
@@ -16,9 +16,9 @@ namespace CareerFIZ.Areas.Employer.Controllers
     [Authorize(Roles = "Employer")]
     public class JobController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public JobController(DataDbContext context)
+        public JobController(jobportaldbContext context)
         {
             _context = context;
         }

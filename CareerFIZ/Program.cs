@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using CareerFIZ.Models;
-using CareerFIZ.DataContext;
 using System.Text.Encodings.Web;
 using CareerFIZ.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -15,7 +14,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 var connectionString = builder.Configuration.GetConnectionString("CareerFIZContextConnection")
     ?? throw new InvalidOperationException("Connection string 'CareerFIZContextConnection' not found.");
 
-builder.Services.AddDbContext<DataDbContext>(options =>
+builder.Services.AddDbContext<jobportaldbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
@@ -25,7 +24,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-builder.Services.AddTransient<DataDbContext>();
+builder.Services.AddTransient<jobportaldbContext>();
 
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
@@ -37,7 +36,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     options.Lockout.MaxFailedAccessAttempts = 3;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
 })
-                .AddEntityFrameworkStores<DataDbContext>()
+                .AddEntityFrameworkStores<jobportaldbContext>()
                 .AddDefaultTokenProviders();
 
 builder.Services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();

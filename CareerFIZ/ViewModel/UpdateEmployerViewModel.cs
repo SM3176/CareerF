@@ -22,7 +22,7 @@ namespace CareerFIZ.ViewModel
         public string? Location { get; set; }
         [Display(Name = "Company website")]
         [StringLength(50, ErrorMessage = "The website cannot be more than 50 characters.")]
-        public string? WebsiteURL { get; set; }
+        public string? WebsiteUrl { get; set; }
         [Display(Name = "Company province")]
         public int ProvinceId { get; set; }
         [Display(Name = "Company size")]

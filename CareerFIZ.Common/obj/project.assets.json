@@ -303,11 +303,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ.Common\\CareerFIZ.Common.csproj",
+      "projectUniqueName": "C:\\Users\\aso\\Source\\Repos\\CareerF\\CareerFIZ.Common\\CareerFIZ.Common.csproj",
       "projectName": "CareerFIZ.Common",
-      "projectPath": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ.Common\\CareerFIZ.Common.csproj",
+      "projectPath": "C:\\Users\\aso\\Source\\Repos\\CareerF\\CareerFIZ.Common\\CareerFIZ.Common.csproj",
       "packagesPath": "C:\\Users\\aso\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aso\\Desktop\\eerls\\job-portal-main\\CareerFIZ.Common\\obj\\",
+      "outputPath": "C:\\Users\\aso\\Source\\Repos\\CareerF\\CareerFIZ.Common\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\aso\\AppData\\Roaming\\NuGet\\NuGet.Config",

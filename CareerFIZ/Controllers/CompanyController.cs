@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CareerFIZ.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
-using CareerFIZ.DataContext;
+
 
 namespace CareerFIZ.Controllers
 {
     [Route("company")]
     public class CompanyController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public CompanyController(DataDbContext context)
+        public CompanyController(jobportaldbContext context)
         {
             _context = context;
         }

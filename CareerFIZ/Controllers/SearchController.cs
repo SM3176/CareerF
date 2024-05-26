@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CareerFIZ.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CareerFIZ.DataContext;
+
 
 namespace CareerFIZ.Controllers
 {
     [Route("search")]
     public class SearchController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public SearchController(DataDbContext context)
+        public SearchController(jobportaldbContext context)
         {
             _context = context;
         }

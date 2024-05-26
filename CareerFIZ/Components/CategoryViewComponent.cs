@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CareerFIZ.Models;
-using CareerFIZ.DataContext;
 
 namespace CareerFIZ.Components
 {
     public class CategoryViewComponent : ViewComponent
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public CategoryViewComponent(DataDbContext context)
+        public CategoryViewComponent(jobportaldbContext context)
         {
             _context = context;
         }

@@ -19,7 +19,7 @@ namespace CareerFIZ.ViewModel
         [Display(Name = "Location")]
         public string? Location { get; set; }
         [Display(Name = "Website")]
-        public string? WebsiteURL { get; set; }
+        public string? WebsiteUrl { get; set; }
         public int? Status { get; set; }
         [Display(Name = "Register date")]
         public DateTime? RegisterDate { get; set; }

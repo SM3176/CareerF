@@ -1,5 +1,4 @@
 ﻿using CareerFIZ.Common;
-using CareerFIZ.DataContext;
 using CareerFIZ.Models;
 using CareerFIZ.Services;
 using CareerFIZ.ViewModel;
@@ -27,12 +26,12 @@ namespace CareerFIZ.Controllers
     {
         private readonly UserManager<AppUser> userManager;
         private readonly SignInManager<AppUser> signInManager;
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
         private readonly IConfiguration _configuration;
         private IEmailSender eemm;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, 
-            DataDbContext context, IEmailSender emailSender, IConfiguration configuration)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
+            jobportaldbContext context, IEmailSender emailSender, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -406,7 +405,7 @@ namespace CareerFIZ.Controllers
 
         private bool IsUsernameExists(string email)
         {
-            var existingUser = _context.Users.FirstOrDefault(u => u.Email == email);
+            var existingUser = _context.AppUsers.FirstOrDefault(u => u.Email == email);
             return existingUser != null;
         }
         

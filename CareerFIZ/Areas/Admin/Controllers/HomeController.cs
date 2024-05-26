@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using X.PagedList;
-using CareerFIZ.DataContext;
+using CareerFIZ.Models;
+
 
 namespace CareerFIZ.Areas.Admin.Controllers
 
@@ -12,9 +13,9 @@ namespace CareerFIZ.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public HomeController(DataDbContext context)
+        public HomeController(jobportaldbContext context)
         {
             _context = context;
         }

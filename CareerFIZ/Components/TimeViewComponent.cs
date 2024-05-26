@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CareerFIZ.Models;
-using CareerFIZ.DataContext;
+
 
 namespace CareerFIZ.Components
 {
     public class TimeViewComponent : ViewComponent
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public TimeViewComponent(DataDbContext context)
+        public TimeViewComponent(jobportaldbContext context)
         {
             _context = context;
         }

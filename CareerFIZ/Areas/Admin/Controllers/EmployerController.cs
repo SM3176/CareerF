@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using CareerFIZ.ViewModel;
 using X.PagedList;
 using CareerFIZ.Models;
-using CareerFIZ.DataContext;
 
 namespace CareerFIZ.Areas.Admin.Controllers
 {
@@ -12,10 +11,10 @@ namespace CareerFIZ.Areas.Admin.Controllers
     [Route("admin/apply-employer")]
     public class EmployerController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
         private readonly UserManager<AppUser> _userManager;
 
-        public EmployerController(DataDbContext context, UserManager<AppUser> userManager)
+        public EmployerController(jobportaldbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -36,7 +35,7 @@ namespace CareerFIZ.Areas.Admin.Controllers
                                Description = emp.Description,
                                Contact = emp.Contact,
                                Location = emp.Location,
-                               WebsiteURL = emp.WebsiteURL,
+                               WebsiteUrl = emp.WebsiteUrl,
                                UrlAvatar = emp.UrlAvatar,
                                RegisterDate = emp.CreateDate,
                                ProvinceName = emp.Province.Name,

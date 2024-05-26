@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace CareerFIZ.Models
 {
@@ -16,15 +15,9 @@ namespace CareerFIZ.Models
         }
 
         public int Id { get; set; }
-        [Display(Name = "Name")]
-        [Required(ErrorMessage = "Please enter category name")]
-        [StringLength(100, ErrorMessage = "Category name cannot be more than 100 characters.")]
-        public string Name { get; set; }
-        [Display(Name = "Description")]
-        [StringLength(256, ErrorMessage = "The description cannot be more than 256 characters.")]
+        public string Name { get; set; } = null!;
         public string? Description { get; set; }
-        [Required]
-        public string Slug { get; set; }
+        public string Slug { get; set; } = null!;
         public bool? Disable { get; set; }
 
         public virtual ICollection<AppUser> AppUsers { get; set; }

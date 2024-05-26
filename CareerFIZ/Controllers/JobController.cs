@@ -3,17 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using X.PagedList;
 using CareerFIZ.Models;
-using CareerFIZ.DataContext;
 
 namespace CareerFIZ.Controllers
 {
     [Route("job")]
     public class JobController : Controller
     {
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
         private readonly UserManager<AppUser> _userManager;
 
-        public JobController(DataDbContext context, UserManager<AppUser> userManager)
+        public JobController(jobportaldbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -190,7 +189,7 @@ namespace CareerFIZ.Controllers
 
         private async Task<bool> HasSubmittedCV(Guid userId, string jobSlug)
         {
-            return await _context.CVs.AnyAsync(cv => cv.Job.Slug == jobSlug && cv.AppUserId == userId);
+            return await _context.Cvs.AnyAsync(cv => cv.Job.Slug == jobSlug && cv.AppUserId == userId);
         }
 
 

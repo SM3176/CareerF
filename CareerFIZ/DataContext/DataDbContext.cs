@@ -55,7 +55,7 @@ namespace CareerFIZ.DataContext
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<CV> CVs { get; set; }
+        public DbSet<Cv> CVs { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<Skill> Skills { get; set; }

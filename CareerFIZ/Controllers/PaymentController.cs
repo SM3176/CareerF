@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CareerFIZ.Models;
-using CareerFIZ.DataContext;
 using Microsoft.AspNetCore.Identity;
 
 namespace CareerFIZ.Controllers
@@ -13,9 +12,9 @@ namespace CareerFIZ.Controllers
     public class PaymentController: Controller
     {
         private readonly UserManager<AppUser> userManager;
-        private readonly DataDbContext _context;
+        private readonly jobportaldbContext _context;
 
-        public PaymentController(UserManager<AppUser> userManager, DataDbContext context)
+        public PaymentController(UserManager<AppUser> userManager, jobportaldbContext context)
         {
             this.userManager = userManager;
             _context = context;
