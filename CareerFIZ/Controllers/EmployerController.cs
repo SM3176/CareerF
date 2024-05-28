@@ -84,7 +84,6 @@ namespace CareerFIZ.Controllers
                     CountryId = model.CountryId,
                     Phone = model.Phone,
                     Status = 2,// waiting to confirm
-                    EmailConfirmed = true
                 };
                 
                 var result = await userManager.CreateAsync(employer, model.Password);

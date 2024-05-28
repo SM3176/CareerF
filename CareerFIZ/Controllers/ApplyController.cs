@@ -13,12 +13,10 @@ namespace CareerFIZ.Controllers
     public class ApplyController : Controller
     {
         private readonly DataDbContext _context;
-        private LogCatcher lg;
 
-        public ApplyController(DataDbContext context, LogCatcher lg)
+        public ApplyController(DataDbContext context)
         {
             _context = context;
-            this.lg = lg;
         }
 
         [Route("{id}")]
@@ -90,16 +88,9 @@ namespace CareerFIZ.Controllers
                     JobId = job.Id,
                     Status = 1 //waiting
                 };
-                try
-                {
-                    _context.CVs.Add(cv);
-                    await _context.SaveChangesAsync();
-                    return Redirect("/apply/" + id);
-                }catch (Exception ex)
-                {
-                    string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
-                    lg.Logging(ex, null, "Apply/apply", ipAddress);
-                }
+                _context.CVs.Add(cv);
+                await _context.SaveChangesAsync();
+                return Redirect("/apply/" + id);
             }
             return View(model);
         }
@@ -107,25 +98,18 @@ namespace CareerFIZ.Controllers
         [HttpGet("{id}/{CVid}/delete")]
         public IActionResult Delete(Guid id, int CVid)
         {
-            try
+
+            CV cv = _context.CVs.Where(cv => cv.Id == CVid).First();
+            string imageName = cv.UrlImage;
+            _context.CVs.Remove(cv);
+            _context.SaveChanges();
+            if (!string.IsNullOrEmpty(imageName))
             {
-                CV cv = _context.CVs.Where(cv => cv.Id == CVid).First();
-                string imageName = cv.UrlImage;
-                _context.CVs.Remove(cv);
-                _context.SaveChanges();
-                if (!string.IsNullOrEmpty(imageName))
-                {
-                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "cvs", imageName);
-                    DeleteImage.DeleteImageFile(imagePath);
-                }
-                return Redirect("/apply/" + id);
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "cvs", imageName);
+                DeleteImage.DeleteImageFile(imagePath);
             }
-            catch (Exception ex)
-            {
-                string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
-                lg.Logging(ex, null, "Apply/delete", ipAddress);
-                return Redirect("/apply/" + id);
-            }
+            return Redirect("/apply/" + id);
+
         }
 
         [HttpGet("{id}/{CVid}/update/{status}")]
@@ -133,16 +117,10 @@ namespace CareerFIZ.Controllers
         {
             CV cv = _context.CVs.Where(cv => cv.Id == CVid).First();
             cv.Status = status;
-            try
-            {
-                _context.CVs.Update(cv);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
-                lg.Logging(ex, null, "Apply/update", ipAddress);
-            }
+
+            _context.CVs.Update(cv);
+            _context.SaveChanges();
+
             return Redirect("/apply/" + id);
         }
     }
