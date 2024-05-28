@@ -83,14 +83,14 @@ namespace CareerFIZ.Controllers
                     ProvinceId = model.ProvinceId,
                     CountryId = model.CountryId,
                     Phone = model.Phone,
-                    Status = 1,// waiting to confirm
+                    Status = 2,// waiting to confirm
                     EmailConfirmed = true
                 };
                 
                 var result = await userManager.CreateAsync(employer, model.Password);
                 if (result.Succeeded)
                 {                    
-                    await userManager.AddToRoleAsync(employer, "User");
+                    //await userManager.AddToRoleAsync(employer, "User");
                     return Redirect("/login");
                 }
                 foreach (var error in result.Errors)

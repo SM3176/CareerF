@@ -5,6 +5,7 @@ using CareerFIZ.ViewModel;
 using X.PagedList;
 using CareerFIZ.Models;
 using CareerFIZ.DataContext;
+using Microsoft.Data.SqlClient;
 
 namespace CareerFIZ.Areas.Admin.Controllers
 {
@@ -77,20 +78,24 @@ namespace CareerFIZ.Areas.Admin.Controllers
             var user = await _userManager.FindByIdAsync(id.ToString());
             //get role by id
             var role = await _userManager.GetRolesAsync(user);
-
+            
             //Check status to set role
             if (status == 0) //denied
             {
                 if (await _userManager.IsInRoleAsync(user, "Employer"))
                 {
-                    await _userManager.RemoveFromRoleAsync(user, "Employer");
-                    await _userManager.AddToRoleAsync(user, "User");
+                    //var sr = await _context.Database.ExecuteSqlRawAsync("DeleteUserRole", user.Id, "EMPLOYER");
+                    //await _userManager.RemoveFromRoleAsync(user, "Employer");
+                    //sr = await _context.Database.ExecuteSqlRawAsync("exec InsertUserRole @Id, @rolename", user.Id, "USER");
+                    //await _userManager.AddToRoleAsync(user, "User");
                 }
             }
             else if (status == 2) //confirmed
             {
-                await _userManager.RemoveFromRoleAsync(user, "User");
-                await _userManager.AddToRoleAsync(user, "Employer");
+                //var sr = await _context.Database.ExecuteSqlRawAsync("DeleteUserRole", user.Id, "USER");
+                //await _userManager.RemoveFromRoleAsync(user, "User");
+                //sr = await _context.Database.ExecuteSqlRawAsync("exec InsertUserRole @Id, @rolename", user.Id, "EMPLOYER");
+                //await _userManager.AddToRoleAsync(user, "Employer");
             }
             return Redirect("/admin/apply-employer/" + status);
         }

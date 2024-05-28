@@ -5,6 +5,7 @@ using CareerFIZ.ViewModel;
 using CareerFIZ.Models;
 using CareerFIZ.Common;
 using CareerFIZ.DataContext;
+using CareerFIZ.Services;
 
 namespace CareerFIZ.Controllers
 {
@@ -12,10 +13,12 @@ namespace CareerFIZ.Controllers
     public class ApplyController : Controller
     {
         private readonly DataDbContext _context;
+        private LogCatcher lg;
 
-        public ApplyController(DataDbContext context)
+        public ApplyController(DataDbContext context, LogCatcher lg)
         {
             _context = context;
+            this.lg = lg;
         }
 
         [Route("{id}")]
@@ -87,9 +90,16 @@ namespace CareerFIZ.Controllers
                     JobId = job.Id,
                     Status = 1 //waiting
                 };
-                _context.CVs.Add(cv);
-                await _context.SaveChangesAsync();
-                return Redirect("/apply/" + id);
+                try
+                {
+                    _context.CVs.Add(cv);
+                    await _context.SaveChangesAsync();
+                    return Redirect("/apply/" + id);
+                }catch (Exception ex)
+                {
+                    string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+                    lg.Logging(ex, null, "Apply/apply", ipAddress);
+                }
             }
             return View(model);
         }
@@ -110,8 +120,10 @@ namespace CareerFIZ.Controllers
                 }
                 return Redirect("/apply/" + id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+                lg.Logging(ex, null, "Apply/delete", ipAddress);
                 return Redirect("/apply/" + id);
             }
         }
@@ -121,8 +133,16 @@ namespace CareerFIZ.Controllers
         {
             CV cv = _context.CVs.Where(cv => cv.Id == CVid).First();
             cv.Status = status;
-            _context.CVs.Update(cv);
-            _context.SaveChanges();
+            try
+            {
+                _context.CVs.Update(cv);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+                lg.Logging(ex, null, "Apply/update", ipAddress);
+            }
             return Redirect("/apply/" + id);
         }
     }

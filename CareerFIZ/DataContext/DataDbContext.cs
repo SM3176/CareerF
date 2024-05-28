@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CareerFIZ.Configurations;
 using CareerFIZ.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CareerFIZ.DataContext
 {
@@ -21,7 +23,6 @@ namespace CareerFIZ.DataContext
         public DataDbContext(DbContextOptions options) : base(options)
         {
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -31,6 +32,7 @@ namespace CareerFIZ.DataContext
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+            
             //Configure using Fluent API
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
@@ -48,7 +50,7 @@ namespace CareerFIZ.DataContext
             modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
             modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
-
+            
             //Data seeding
             modelBuilder.Seed();
         }
@@ -63,5 +65,7 @@ namespace CareerFIZ.DataContext
         public DbSet<Title> Titles { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Payment> Payment { get; set; }
+        public DbSet<Log> Log { get; set; }
+        
     }
 }

@@ -103,17 +103,18 @@ namespace CareerFIZ.Areas.Admin.Controllers
             }
 
             var roles = await userManager.GetRolesAsync(user);
-            var result = await userManager.RemoveFromRolesAsync(user, roles);
+            var result = await userManager.RemoveFromRoleAsync(user, roles[0]);
+
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Cannot remove user existing roles");
+                ModelState.AddModelError("", "Cannot removeaa user existing roles");
                 return View(model);
             }
-
+            
             result = await userManager.AddToRolesAsync(user,
-                model.Where(x => x.IsSelected).Select(y => y.RoleName));
-
+                            model.Where(x => x.IsSelected).Select(y => y.RoleName));
+            
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Cannot add selected roles to user");

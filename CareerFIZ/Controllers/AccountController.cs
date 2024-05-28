@@ -30,15 +30,17 @@ namespace CareerFIZ.Controllers
         private readonly DataDbContext _context;
         private readonly IConfiguration _configuration;
         private IEmailSender eemm;
+        private LogCatcher lg;
 
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, 
-            DataDbContext context, IEmailSender emailSender, IConfiguration configuration)
+            DataDbContext context, IEmailSender emailSender, IConfiguration configuration, LogCatcher lg)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             _context = context;
             eemm = emailSender;
             _configuration = configuration;
+            this.lg = lg;
         }
 
         [HttpGet]
@@ -54,40 +56,48 @@ namespace CareerFIZ.Controllers
         [Route("register")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (IsUsernameExists(model.Email))
+            try
             {
-                ModelState.AddModelError("Email", "This account has already existed.");
-                return View(model);
-            }
-            if (ModelState.IsValid)
+                if (IsUsernameExists(model.Email))
+                {
+                    ModelState.AddModelError("Email", "This account has already existed.");
+                    return View(model);
+                }
+                if (ModelState.IsValid)
+                {
+                    var user = new AppUser
+                    {
+                        UserName = model.Email,
+                        FullName = model.FullName,
+                        Slug = TextHelper.ToUnsignString(model.FullName).ToLower(),
+                        Age = model.Age,
+                        Address = model.Address,
+                        Email = model.Email,
+                        CreateDate = DateTime.Now,
+                        Phone = model.Phone,
+                        UrlAvatar = "default_user.png",
+                        Status = null,
+                        TwoFactorEnabled = false,
+                        EmailConfirmed = true
+
+                    };
+
+                    var result = await userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        //await userManager.AddToRoleAsync(user, "user");
+                        //await SendConfirmationEmail(model.Email, user);
+                        return View("RegisterationSuccessful");
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }catch (Exception ex)
             {
-                var user = new AppUser
-                {
-                    UserName = model.Email,
-                    FullName = model.FullName,
-                    Slug = TextHelper.ToUnsignString(model.FullName).ToLower(),
-                    Age = model.Age,
-                    Address = model.Address,
-                    Email = model.Email,
-                    CreateDate = DateTime.Now,
-                    Phone = model.Phone,
-                    UrlAvatar = "default_user.png",
-                    Status = null,
-                    TwoFactorEnabled = false
-                    
-                };
-                
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SendConfirmationEmail(model.Email,user);
-                    await userManager.AddToRoleAsync(user, "User");
-                    return View("RegisterationSuccessful");
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
+                string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+                lg.Logging(ex, null, "Account/register", ipAddress);
             }
             return View();
         }
@@ -109,63 +119,69 @@ namespace CareerFIZ.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
-
-            if (!ModelState.IsValid)
+            try
             {
-                //First Fetch the User Details by Email Id
-                var user = await userManager.FindByEmailAsync(model.Email);
-                //Then Check if User Exists, EmailConfirmed and Password Is Valid
-                //CheckPasswordAsync: Returns a flag indicating whether the given password is valid for the specified user.
-                if (user != null && !user.EmailConfirmed &&
-                            (await userManager.CheckPasswordAsync(user, model.Password)))
+                if (!ModelState.IsValid)
                 {
-                    ModelState.AddModelError(string.Empty, "Email not confirmed yet");
-                    return View(model);
-                }
+                    //First Fetch the User Details by Email Id
+                    var user = await userManager.FindByEmailAsync(model.Email);
+                    //Then Check if User Exists, EmailConfirmed and Password Is Valid
+                    //CheckPasswordAsync: Returns a flag indicating whether the given password is valid for the specified user.
+                    if (user != null && !user.EmailConfirmed &&
+                                (await userManager.CheckPasswordAsync(user, model.Password)))
+                    {
+                        ModelState.AddModelError(string.Empty, "Email not confirmed yet");
+                        return View(model);
+                    }
 
-                var result = await signInManager.PasswordSignInAsync(
-                    model.Email,
-                    model.Password,
-                    false,
-                    true);
-                if (result.Succeeded)
-                {
-                    
-                    return RedirectToAction("index", "home");
+                    var result = await signInManager.PasswordSignInAsync(
+                        model.Email,
+                        model.Password,
+                        false,
+                        true);
+                    if (result.Succeeded)
+                    {
 
-                }
-                else if (result.RequiresTwoFactor)
-                {
-                    
-                    var token = await userManager.GenerateTwoFactorTokenAsync(user, "Email");
+                        return RedirectToAction("index", "home");
 
-                    await eemm.SendEmailAsync(user.Email, "Account Authentication", $"Here is the token: {token}");
-                    
-                    return RedirectToPage("TwoFactorAuth");
-                    
+                    }
+                    else if (result.RequiresTwoFactor)
+                    {
+
+                        var token = await userManager.GenerateTwoFactorTokenAsync(user, "Email");
+
+                        await eemm.SendEmailAsync(user.Email, "Account Authentication", $"Here is the token: {token}");
+
+                        return RedirectToPage("TwoFactorAuth");
+
+                    }
+                    else if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else if (result.IsLockedOut)
+                    {
+                        TempData["lok"] = "Account has been locked. Return after 15mins";
+                        return View(model);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid account or password. Please try again !");
+                        return View(model);
+                    }
+                    if (!result.IsLockedOut && !result.Succeeded)
+                    {
+                        // Handle failure
+                        // Get the number of attempts left
+                        var attemptsLeft = userManager.Options.Lockout.MaxFailedAccessAttempts - await userManager.GetAccessFailedCountAsync(user);
+                        ModelState.AddModelError(string.Empty, $"Invalid Login Attempt. Remaining Attempts : {attemptsLeft}");
+                        return View(model);
+                    }
                 }
-                else if (!string.IsNullOrEmpty(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
-                else if (result.IsLockedOut)
-                {                    
-                    TempData["lok"] = "Account has been locked. Return after 15mins";
-                    return View(model);
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid account or password. Please try again !");
-                    return View(model);
-                }
-                if (!result.IsLockedOut && !result.Succeeded)
-                {
-                    // Handle failure
-                    // Get the number of attempts left
-                    var attemptsLeft = userManager.Options.Lockout.MaxFailedAccessAttempts - await userManager.GetAccessFailedCountAsync(user);
-                    ModelState.AddModelError(string.Empty, $"Invalid Login Attempt. Remaining Attempts : {attemptsLeft}");
-                    return View(model);
-                }
+            }catch (Exception ex)
+            {
+                string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+                lg.Logging(ex, null, "Account/login", ipAddress);
             }
             return View(model);
         }       
@@ -261,29 +277,35 @@ namespace CareerFIZ.Controllers
                 ModelState.AddModelError(string.Empty, "The password and confirmation password do not match.");
                 return View(model);
             }
-
-            var user = await userManager.GetUserAsync(User);
-            if (user == null)
+            try
             {
-                return NotFound();
-            }
-
-            var changePasswordResult = await userManager.ChangePasswordAsync(user, model.Password, model.NewPassword);
-            if (!changePasswordResult.Succeeded)
-            {
-                foreach (var error in changePasswordResult.Errors)
+                var user = await userManager.GetUserAsync(User);
+                if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    return NotFound();
                 }
-                return View(model);
-            }
-            if (await userManager.IsLockedOutAsync(user))
+
+                var changePasswordResult = await userManager.ChangePasswordAsync(user, model.Password, model.NewPassword);
+                if (!changePasswordResult.Succeeded)
+                {
+                    foreach (var error in changePasswordResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View(model);
+                }
+                if (await userManager.IsLockedOutAsync(user))
+                {
+                    await userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow);
+                }
+                await signInManager.RefreshSignInAsync(user);
+                TempData["PasswordChanged"] = true;
+                await signInManager.SignOutAsync();
+            }catch (Exception ex)
             {
-                await userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow);
+                string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+                lg.Logging(ex, null, "Account/changePass", ipAddress);
             }
-            await signInManager.RefreshSignInAsync(user);
-            TempData["PasswordChanged"] = true;
-            await signInManager.SignOutAsync();
             return RedirectToAction("Login");
         }
 
@@ -298,30 +320,36 @@ namespace CareerFIZ.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // Find the user by email
-                var user = await userManager.FindByEmailAsync(model.Email);
-
-                // If the user is found AND Email is confirmed
-                if (user != null && await userManager.IsEmailConfirmedAsync(user))
+                if (ModelState.IsValid)
                 {
-                    await SendForgotPasswordEmail(user.Email, user);
+                    // Find the user by email
+                    var user = await userManager.FindByEmailAsync(model.Email);
 
-                    // Send the user to Forgot Password Confirmation view
+                    // If the user is found AND Email is confirmed
+                    if (user != null && await userManager.IsEmailConfirmedAsync(user))
+                    {
+                        await SendForgotPasswordEmail(user.Email, user);
+
+                        // Send the user to Forgot Password Confirmation view
+                        return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                    }
+
+                    // To avoid account enumeration and brute force attacks, don't
+                    // reveal that the user does not exist or is not confirmed
                     return RedirectToAction("ForgotPasswordConfirmation", "Account");
                 }
-
-                // To avoid account enumeration and brute force attacks, don't
-                // reveal that the user does not exist or is not confirmed
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            }catch (Exception ex)
+            {
+                string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+                lg.Logging(ex, null, "Account/forgotPass", ipAddress);
             }
-
             return View(model);
         }
 
         private async Task SendForgotPasswordEmail(string? email, AppUser? user)
-        {
+        {            
             // Generate the reset password token
             var token = await userManager.GeneratePasswordResetTokenAsync(user);
 
@@ -366,35 +394,42 @@ namespace CareerFIZ.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // Find the user by email
-                var user = await userManager.FindByEmailAsync(model.Email);
-
-                if (user != null)
+                if (ModelState.IsValid)
                 {
-                    // reset the user password
-                    var result = await userManager.ResetPasswordAsync(user, model.Token, model.Password);
+                    // Find the user by email
+                    var user = await userManager.FindByEmailAsync(model.Email);
 
-                    if (result.Succeeded)
+                    if (user != null)
                     {
-                        return RedirectToAction("ResetPasswordConfirmation", "Account");
+                        // reset the user password
+                        var result = await userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+                        if (result.Succeeded)
+                        {
+                            return RedirectToAction("ResetPasswordConfirmation", "Account");
+                        }
+
+                        // Display validation errors. For example, password reset token already
+                        // used to change the password or password complexity rules not met
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                        return View(model);
                     }
 
-                    // Display validation errors. For example, password reset token already
-                    // used to change the password or password complexity rules not met
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                    return View(model);
+                    // To avoid account enumeration and brute force attacks, don't
+                    // reveal that the user does not exist
+                    return RedirectToAction("ResetPasswordConfirmation", "Account");
                 }
-
-                // To avoid account enumeration and brute force attacks, don't
-                // reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                // Display validation errors if model state is not valid
+            }catch (Exception ex)
+            {
+                string? ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+                lg.Logging(ex, null, "Account/resetPass", ipAddress);
             }
-            // Display validation errors if model state is not valid
             return View(model);
         }
 
@@ -493,7 +528,7 @@ namespace CareerFIZ.Controllers
 
 		[HttpPost]
 		public async Task<IActionResult> DeleteUser()
-		{
+		{            
 			// Get the current user
 			var user = await userManager.GetUserAsync(User);
 

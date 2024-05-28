@@ -14,6 +14,7 @@ namespace CareerFIZ.Services
     public class EmailSender: IEmailSender
     {
         private readonly ILogger _logger;
+        private readonly string sKey = "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";
 
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor,
                            ILogger<EmailSender> logger)
@@ -26,11 +27,11 @@ namespace CareerFIZ.Services
 
         public async Task SendEmailAsync(string toEmail, string subject, string message)
         {
-            if (string.IsNullOrEmpty(Options.SendGridKey))
+            if (string.IsNullOrEmpty(sKey))
             {
                 throw new Exception("Null SendGridKey");
             }
-            await Execute(Options.SendGridKey, subject, message, toEmail);
+            await Execute(sKey, subject, message, toEmail);
         }
 
         public async Task Execute(string apiKey, string subject, string message, string toEmail)

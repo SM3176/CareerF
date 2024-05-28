@@ -4,11 +4,13 @@ using X.PagedList;
 using CareerFIZ.Models;
 using CareerFIZ.DataContext;
 using CareerFIZ.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CareerFIZ.Areas.Employer.Controllers
 {
     [Area("Employer")]
     [Route("employer/apply")]
+    [Authorize(Roles = "Employer, HRStaff")]
     public class ApplyController : Controller
     {
         private readonly DataDbContext _context;
@@ -21,37 +23,42 @@ namespace CareerFIZ.Areas.Employer.Controllers
         [Route("{id}/{status}")]
         public async Task<IActionResult> Index(Guid id, int status, int? page)
         {
+            var emp = User.IsInRole("Employer");
             int pageSize = 10; //number of CVs per page
             ViewBag.stat = status;
-            var CV = (from cv in _context.CVs
-                      orderby cv.Job.Name descending
-                      select new CVsViewModel()
-                      {
-                          CVId = cv.Id,
-                          Certificate = cv.Certificate,
-                          Major = cv.Major,
-                          ApplyDate = cv.ApplyDate,
-                          GraduatedAt = cv.GraduatedAt,
-                          GPA = cv.GPA,
-                          Description = cv.Description,
-                          Introduce = cv.Introduce,
-                          UserId = cv.AppUserId,
-                          CVStatus = cv.Status,
-                          JobName = cv.Job.Name,
-                          EmployerLogo = cv.Job.AppUser.UrlAvatar,
-                          UserName = cv.AppUser.FullName,
-                          CVImage = cv.UrlImage,
-                          CVPhone = cv.Phone,
-                          CVEmail = cv.Email,
-                          EmployerId = cv.Job.AppUser.Id,
-                          EmployerAddress = cv.EmployerAddress,
-                          EmployerCity = cv.City,
-                          EmployerComment = cv.Comment,
-                          EmployerEmail = cv.EmployerEmail,
-                          EmployerPhone = cv.EmployerPhone,
-                          EmployerRating = cv.EmployerRating,
-                          CommentOn = cv.CommentOn
-                      }).Where(cv => cv.EmployerId == id);
+
+                var CV = (from cv in _context.CVs
+                          orderby cv.Job.Name descending
+                          select new CVsViewModel()
+                          {
+                              CVId = cv.Id,
+                              Certificate = cv.Certificate,
+                              Major = cv.Major,
+                              ApplyDate = cv.ApplyDate,
+                              GraduatedAt = cv.GraduatedAt,
+                              GPA = cv.GPA,
+                              Description = cv.Description,
+                              Introduce = cv.Introduce,
+                              UserId = cv.AppUserId,
+                              CVStatus = cv.Status,
+                              JobName = cv.Job.Name,
+                              EmployerLogo = cv.Job.AppUser.UrlAvatar,
+                              UserName = cv.AppUser.FullName,
+                              CVImage = cv.UrlImage,
+                              CVPhone = cv.Phone,
+                              CVEmail = cv.Email,
+                              EmployerId = cv.Job.AppUser.Id,
+                              EmployerAddress = cv.EmployerAddress,
+                              EmployerCity = cv.City,
+                              EmployerComment = cv.Comment,
+                              EmployerEmail = cv.EmployerEmail,
+                              EmployerPhone = cv.EmployerPhone,
+                              EmployerRating = cv.EmployerRating,
+                              CommentOn = cv.CommentOn,
+                              iS= cv.Job.isSponser
+                          });
+
+            if (emp) { CV.Where(cv => cv.EmployerId == id); } else { CV.Where(x => x.iS); }
             var CVs = await CV.ToListAsync();
             switch (status)
             {

@@ -56,5 +56,6 @@ namespace CareerFIZ.ViewModel
         [StringLength(50, ErrorMessage = "The email cannot be more than 50 characters.")]
         public string? EmployerEmail { get; set; }
         public DateTime? CommentOn { get; set; }
+        public bool iS {  get; set; }
     }
 }

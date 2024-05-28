@@ -1,0 +1,62 @@
+﻿@model PaymentCredViewModel;
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http
+@inject SignInManager<AppUser> signInManager
+@inject UserManager<AppUser> userManager
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .payment-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+            .payment-form label,
+            .payment-form input,
+            .payment-form button {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .payment-form button {
+                padding: 10px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+    </style>
+    @{
+        Layout = "_LayoutAccount";        
+    }
+</head>
+<body>
+    <h1>Payment Page</h1>
+    <p>The amount to be paid:@ViewBag.amount</p>
+    
+    <form action="/Payment/ProcessPayment" method="POST">
+        <div class="payment-form">
+            <label asp-for="cardNumber">Card Number:</label>
+            <input asp-for="cardNumber" type="text" id="card-number" pattern="[0-9]*" inputmode="numeric" placeholder="Enter card number">
+
+            <label asp-for="cardHolder">Card Holder:</label>
+            <input asp-for="cardHolder" type="text" id="cardHolder" placeholder="Enter card holder name">
+
+            <label asp-for="expiryDate">Expiry Date:</label>
+            <input asp-for="expiryDate" type="month" min="yyyy-MM" id="expiry-date" placeholder="MM/YY">
+
+            <label asp-for="cvv">CVV:</label>
+            <input asp-for="cvv" type="text" id="cvv" maxlength="3" placeholder="Enter CVV" pattern="[0-9]*" inputmode="numeric">
+            <input type="hidden" name="amo" value="@ViewBag.amount"/>
+            <button type="submit">Pay Now</button>
+        </div>
+    </form>
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

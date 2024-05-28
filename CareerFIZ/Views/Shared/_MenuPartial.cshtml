@@ -9,12 +9,11 @@
     var isInRoleUser = User.IsInRole("User");
     var isInRoleEmployer = User.IsInRole("Employer");
     var isInRoleAdmin = User.IsInRole("Admin");
-    var isInRoleHRStaff = User.IsInRole("HRStaff");
+    var isInRoleHRStaff = User.IsInRole("HRStaff");    
 }
 
 <li class="menu-active"><a href="/">Home</a></li>
 <li><a href="/job">Jobs</a></li>
-<li><a href="/company">Companies</a></li>
 @if (isSignedIn)
 {
     if (isInRoleUser)
@@ -41,8 +40,6 @@
         }
         <li><a href="/search">search</a></li>        
         <li><a href="/about-us">about us</a></li>
-        <li><a href="/contact">contact</a></li>
-        <li><a href="/elements">elements</a></li>
     </ul>
 </li>
 
@@ -98,8 +95,5 @@ else
     </li>
     <li>
         <a href="/employer/login" class="ticker-btn">For Employers</a>
-    </li>
-    <li>
-        <a href="/admin/login" class="ticker-btn">For admins</a>
     </li>
 }

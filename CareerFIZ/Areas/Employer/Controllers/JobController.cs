@@ -13,7 +13,7 @@ namespace CareerFIZ.Areas.Employer.Controllers
 {
     [Area("Employer")]
     [Route("employer/job")]
-    [Authorize(Roles = "Employer")]
+    [Authorize(Roles = "Employer, HRStaff")]
     public class JobController : Controller
     {
         private readonly DataDbContext _context;
